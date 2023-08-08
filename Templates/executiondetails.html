@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/TestBenchDetailsViewer/Templates/style.css"/>
+    <title>Execution details</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark"">
+        <div class="container-fluid">
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/TestBenchDetailsViewer/Templates/index.html">Global summary</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/TestBenchDetailsViewer/Templates/testdetails.html">Test details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/TestBenchDetailsViewer/Templates/executiondetails.html">Execution details</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+    <div>
+    <h1>Execution details</h1>
+
+
+
+    <div class="container">
+        <div class="table-scrollsd">
+        <div class="row">
+          <div class="col-4">
+            <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBox" name="comboBox">
+              <option selected>Open this select menu</option>
+              <option value="1" href="#list-item-1"  >One</option>
+              <option value="2" href="#list-item-2">Two</option>
+              <option value="3" href="#list-item-3">Three</option>
+            </select>
+            <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBox" name="comboBox">
+              <option selected>Open this select menu</option>
+              <option value="1" href="#list-item-1"  >One</option>
+              <option value="2" href="#list-item-2">Two</option>
+              <option value="3" href="#list-item-3">Three</option>
+            </select>
+            <input class="form-control" type="text" value="PASS/FAIL" aria-label="Disabled input example"  readonly>
+            <!-- <div id="list-example" class="list-group">
+              <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
+              <a class="list-group-item list-group-item-action" href="#list-item-2">Item 2</a>
+              <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
+              <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+            </div> -->
+          </div>
+          
+          <div class="col-8">
+            <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+              <h4 id="list-item-1">Item 1</h4>
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              </p>
+              <h4 id="list-item-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
+              <p>...</p>
+              <h4 id="list-item-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
+              <p>...</p>
+              <h4 id="list-item-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
+              <p>...</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      </div>
+      </div>
+</body>
+</html>
