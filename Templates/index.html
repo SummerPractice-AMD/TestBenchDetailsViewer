@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/TestBenchDetailsViewer/Templates/style.css"/>
-    <title>IDK</title>
+    <title>Global summary</title>
 </head>
 <body class="body">
     
@@ -33,20 +33,15 @@
       </nav>
     <div>
       <h1>Global summary</h1>
-      <br/>
     <div class="container">
       <div class="col-4">
     <table class="table table-dark table-hover">
-        <thead >
             <tr>
-              <th scope="col"  colspan="2" align-text="center" valign="top">Global summary</th>
+              <th scope="col"  colspan="2">Global summary</th>
             </tr>
-          </thead>
-          <tbody>
             <tr>
               <th scope="row">no runs</th>
-              <td>x </td>
-             
+              <td>x</td>
             </tr>
             <tr>
               <th scope="row">no errors</th>
@@ -68,11 +63,9 @@
                 <td>x s</td>
                 
               </tr>
-          </tbody>
       </table>
     </div>
     </div>
-      
 <script>
   var data;
   fetch('./regressions.tests.json').then(res => res.json()).then(data => {

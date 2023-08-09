@@ -34,51 +34,125 @@
     
     <div>
     <h1>Execution details</h1>
-
-
-
     <div class="container">
-        <div class="table-scrollsd">
-        <div class="row">
-          <div class="col-4">
-            <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBox" name="comboBox">
-              <option selected>Open this select menu</option>
-              <option value="1" href="#list-item-1"  >One</option>
-              <option value="2" href="#list-item-2">Two</option>
-              <option value="3" href="#list-item-3">Three</option>
-            </select>
-            <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBox" name="comboBox">
-              <option selected>Open this select menu</option>
-              <option value="1" href="#list-item-1"  >One</option>
-              <option value="2" href="#list-item-2">Two</option>
-              <option value="3" href="#list-item-3">Three</option>
-            </select>
-            <input class="form-control" type="text" value="PASS/FAIL" aria-label="Disabled input example"  readonly>
-            <!-- <div id="list-example" class="list-group">
-              <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
-              <a class="list-group-item list-group-item-action" href="#list-item-2">Item 2</a>
-              <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
-              <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
-            </div> -->
-          </div>
-          
-          <div class="col-8">
-            <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
-              <h4 id="list-item-1">Item 1</h4>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-              <h4 id="list-item-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
-              <p>...</p>
-              <h4 id="list-item-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
-              <p>...</p>
-              <h4 id="list-item-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
-              <p>...</p>
-            </div>
-          </div>
-          
+      <div class="table-scrollsd">
+      <div class="row">
+        <div class="col-4">
+          <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBoxRunId" name="comboBoxRunId">
+          </select>
+          <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBoxTestNames" name="comboBoxTestNames">
+            <option selected>Select Test name</option>
+          </select>
+          <input class="form-control" type="text" value="" aria-label="Disabled input example"  readonly id="status">
         </div>
+        
+        <div class="col-8">
+          <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+            <h4 id="list-item-1">Item 1</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+            <h4 id="list-item-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
+            <p>...</p>
+            <h4 id="list-item-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
+            <p>...</p>
+            <h4 id="list-item-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</h4>
+            <p id="log_lineItem"></p>
+          </div>
+        </div>
+        
       </div>
-      </div>
+    </div>
+    </div>
+    
+
+
+    
       </div>
 </body>
+<script>
+//   const comboBoxRunIdHardCoded = [
+//   { name: 'run_1', value: '1'},
+//   { name: 'run_2', value: '2'},
+//   { name: 'run_3', value: '3'},
+//   { name: 'run_4', value: '4'},
+//   { name: 'run_5', value: '5'},
+//   { name: 'run_6', value: '6'},
+//   { name: 'run_7', value: '7'}
+// ];
+//   const comboBoxTestNames1 = [
+//     {name: 'test name 1',status:'PASS', log_lines: 'A_SDASDASDASDASDASDASDASD'},
+//     {name: 'test name 2',status:'PASS', log_lines: 'A_SDASDASDASDASDASDASDASDasdasd'},
+//     {name: 'test name 3',status:'FAIL', log_lines: 'A_SDASDASDASDASDASDASDASDsdasdaasdasd'},
+//     {name: 'test name 4',status:'PASS', log_lines: 'A_SDASDASDASDASDASDASDASDdsadasdasd'},
+//     {name: 'test name 5',status:'PASS', log_lines: 'A_SDASDASDASDASDASDASDASDadsadasdasd'},
+//     {name: 'test name 6',status:'PASS', log_lines: 'A_SDASDASDASDASDASDASDASDsadasdas'},
+//     {name: 'test name 7',status:'FAIL', log_lines: 'A_SDASDASDASDASDASDASDASDdasdasd'}
+//   ];
+// const comboBoxRunId = document.getElementById('comboBoxRunId');
+// const comboBoxRunTestNames = document.getElementById('comboBoxTestNames');
+// const inputText = document.getElementById('status');
+// function populateComboBoxes() {
+//   for(let i = 0; i < comboBoxRunIdHardCoded.length; i++)
+//   {
+//     let option = document.createElement('option');
+//     option.text = comboBoxRunIdHardCoded[i].name;
+//     option.value = comboBoxRunIdHardCoded[i].value;
+//     comboBoxRunId.appendChild(option);
+//   }
+// }
+// function populateComboBoxesT() {
+//   for(let i = 0; i < comboBoxTestNames1.length; i++)
+//   {
+//     let option = document.createElement('option');
+//     option.text = comboBoxTestNames1[i].name;
+//     option.value = comboBoxTestNames1[i].value;
+//     comboBoxRunTestNames.appendChild(option);
+//   }
+// }
+// populateComboBoxes();
+// populateComboBoxesT();
+// const resultP = document.getElementById('log_lineItem');
+// comboBoxRunTestNames.addEventListener('change', function(){
+// inputText.innerHTML = this.status;
+// resultP.innerHTML = this.log_lines;
+
+// })
+
+fetch('/regressions.main.json')
+            .then(response => response.json())
+            .then(data => {
+              const selectElement = document.getElementById('comboBoxTestNames');
+
+              // Populate the select element with options
+              data.forEach(item => {
+              const option = document.createElement('option');
+              option.value = item.id;
+              option.text = item.test_name;
+              selectElement.appendChild(option);
+});
+               
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing JSON:', error);
+            });
+           
+           
+            fetch('/regressions.main.json')
+            .then(response => response.json())
+            .then(data => {
+              const selectElement = document.getElementById('comboBoxRunId');
+
+              // Populate the select element with options
+              data.forEach(item => {
+              const option = document.createElement('option');
+              option.value = item.id;
+              option.text = item.run_id;
+              selectElement.appendChild(option);
+});
+               
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing JSON:', error);
+            });
+</script>
 </html>

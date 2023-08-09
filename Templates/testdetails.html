@@ -36,14 +36,16 @@
 
     <div class="container">
         <div class="table-scrollsd">
-        <div class="row">
+        <div class="col">
+          <div class="container">
           <div class="col-4">
-            <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBox" name="comboBox">
-              <option selected>Open this select menu</option>
-              <option value="1" href="#list-item-1"  >One</option>
-              <option value="2" href="#list-item-2">Two</option>
-              <option value="3" href="#list-item-3">Three</option>
+            <select class="form-select form-select-lg " aria-label="Large select example" id="comboBox" name="comboBox">
+              <option selected>Select test</option>
             </select>
+          </div>
+        </div>
+          <div class="container">
+            <div class="col-4">
             <table class="table table-dark table-hover">
                 <tbody>
                   <tr>
@@ -75,11 +77,30 @@
                 </tbody>
             </table>
           </div>
-          
-         
+        </div>      
         </div>
       </div>
       </div>
       </div>
 </body>
+<script>
+
+fetch('/regressions.main.json')
+            .then(response => response.json())
+            .then(data => {
+              const selectElement = document.getElementById('comboBox');
+
+              // Populate the select element with options
+              data.forEach(item => {
+              const option = document.createElement('option');
+              option.value = item.id;
+              option.text = item.run_id;
+              selectElement.appendChild(option);
+});
+               
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing JSON:', error);
+            });
+</script>
 </html>
