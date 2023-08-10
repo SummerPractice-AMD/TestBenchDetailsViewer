@@ -41,84 +41,90 @@ class BDQueries:
             sum_simtime += document["sim_time"]
             count_simtime += 1
         return sum_simtime / count_simtime
-    
-    #----------------------------------------------------------------------------------------------
-    
+
+    # ----------------------------------------------------------------------------------------------
+
     def test_avg_runtime(self, testname):
         sum_runtime = 0
         count_runtime = 0
-        documents = self.collection.find({"testname":testname})
+        documents = self.collection.find({"testname": testname})
         for document in documents:
             sum_runtime += document["run_time"]
             count_runtime += 1
         return sum_runtime / count_runtime
-    
+
     def test_avg_simtime(self, testname):
         sum_simtime = 0
         count_simtime = 0
-        documents = self.collection.find({"testname":testname})
+        documents = self.collection.find({"testname": testname})
         for document in documents:
             sum_simtime += document["sim_time"]
             count_simtime += 1
         return sum_simtime / count_simtime
-    
+
     def test_max_runtime(self, testname):
         max = 0
-        documents = self.collection.find({"testname":testname})
+        documents = self.collection.find({"testname": testname})
         for document in documents:
             if max < document["run_time"]:
                 max = document["run_time"]
         return max
-    
+
     def test_min_runtime(self, testname):
         min = sys.maxsize
-        documents = self.collection.find({"testname":testname})
+        documents = self.collection.find({"testname": testname})
         for document in documents:
             if min > document["run_time"]:
                 min = document["run_time"]
         return min
-    
+
     def test_pass_rate(self, testname):
         sum_status = 0
         sum_pass = 0
-        documents = self.collection.find({"testname":testname})
+        documents = self.collection.find({"testname": testname})
         for document in documents:
             sum_status += 1
-            if document["status"].lower()=="pass":
-                sum_pass+=1
+            if document["status"].lower() == "pass":
+                sum_pass += 1
 
         return (sum_pass / sum_status) * 100
-    
+
     def test_sum_run_time(self, testname):
         sum_runtime = 0
         documents = self.collection.find({"testname": testname})
         for document in documents:
             sum_runtime += document["run_time"]
         return sum_runtime
-    
-    #----------------------------------------------------------------------------------
+
+    def test_last_status(self, testname):
+        document = self.collection.aggregate(
+            [{"$sort": {"_id": -1}}, {"$match": {"testname": testname}}, {"$limit": 1}]
+        )
+        return list(document)[0]["status"]
+
+    # ----------------------------------------------------------------------------------
 
     def execution_details_status(self, filename, testname):
-        documents = self.collection.find({"run_id":filename, "testname":testname})
+        documents = self.collection.find({"run_id": filename, "testname": testname})
         return list(documents)[0]["status"]
-    
+
     def execution_details(self, filename, testname):
-        documents = self.collection.find({"run_id":filename, "testname":testname})
+        documents = self.collection.find({"run_id": filename, "testname": testname})
         return list(documents)[0]["loglines"]
-    
-    #---------------------------------------------------------------------------------
+
+    # ---------------------------------------------------------------------------------
 
     def get_run_ids(self):
         documents = self.collection.find({})
-        run_ids= []
+        run_ids = []
         for document in documents:
             if document["run_id"] not in run_ids:
                 run_ids.append(document["run_id"])
         return run_ids
-    
+
     def get_test_names(self):
         documents = self.collection.find({})
-        test_names= []
+        test_names = []
         for document in documents:
             if document["testname"] not in test_names:
                 test_names.append(document["testname"])
@@ -139,11 +145,12 @@ def main():
     print("test_max_runtime:", query_tests.test_max_runtime("tb.test_3"))
     print("test_min_runtime:", query_tests.test_min_runtime("tb.test_3"))
     print("test_pass_rate:", query_tests.test_pass_rate("tb.test_3"))
-    print("execution_details_status:", query_tests.execution_details_status("file_3.txt","tb.test_3"))
-    print("execution_details:", query_tests.execution_details("file_3.txt","tb.test_3"))
+    print("execution_details_status:",query_tests.execution_details_status("file_3.txt", "tb.test_3"),)
+    print("execution_details:", query_tests.execution_details("file_3.txt", "tb.test_3"))
     print("get_run_ids:", query_tests.get_run_ids())
     print("get_test_names:", query_tests.get_test_names())
     print("test_sum_run_time:", query_tests.test_sum_run_time("tb.test_3"))
+    print("test_last_status:", query_tests.test_last_status("tb.test_2"))
 
 
 if __name__ == "__main__":
