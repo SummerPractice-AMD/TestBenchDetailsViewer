@@ -1,0 +1,22 @@
+
+
+.navbar-collapse{
+
+    display: flex;
+    justify-content: flex-start;
+   
+}
+.table {
+    border-radius:  .375rem;
+    margin-left: 29rem;
+}
+.scrollspy-example{
+    height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.table-scrollsd{
+    margin-top: 10rem;
+
+}
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <link rel="stylesheet" href="/TestBenchDetailsViewer/Templates/style.css"/>
+    <title>Global summary</title>
+</head>
+<body class="body">
+    
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark"">
+        <div class="container-fluid">
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/TestBenchDetailsViewer/Templates/index.html">Global summary</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/TestBenchDetailsViewer/Templates/testdetails.html">Test details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/TestBenchDetailsViewer/Templates/executiondetails.html">Execution details</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav> 
+    <div>
+      <h1>Global summary</h1>
+    <div class="container">
+      <div class="col-4">
+    <table class="table table-dark table-hover" id="tableGlobalSummary">
+      <tr>
+        <th scope="col"  colspan="2">Global summary</th>
+      </tr>
+      <tr>
+        <th scope="row">no runs</th>
+        <td>x</td>
+      </tr>
+      <tr>
+        <th scope="row">no errors</th>
+        <td>x s</td>
+        
+      </tr>
+      <tr>
+        <th scope="row">avg runtime</th>
+        <td>x s</td>
+        
+      </tr>
+      <tr>
+          <th scope="row">avg sim time</th>
+          <td>x s</td>
+         
+      </tr>
+      <tr>
+          <th scope="row">max run time</th>
+          <td>x s</td>
+          
+        </tr>
+      </table>
+    </div>
+    </div>
+<script>
+  const summaryContainer = document.getElementById("tableGlobalSummary");
+ 
+  fetch("http://localhost:5000/api/global_summary", {
+  method: 'GET',
+  mode: 'no-cors',
+  origin: 'http://127.0.0.1:5000',
+  headers: {
+    'Authorization': `Bearer` + `eyJ1c2VyX2lkIjozfQ.ZNNCYQ.BICLlptdhMUFEf992nsX7zNzoFg`,
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+    'X-RapidAPI-Key': 'IsThisFirstTime_Log_From_LiveServer'
+  }})
+  .then((response) => response.json())
+  .then(data => { const globalSummary = data.global_summary;
+
+  
+  summaryContainer.innerHTML = `
+  <tr >
+              <th scope="col"  colspan="3">Global Summary</th>
+            </tr>
+  <tr>
+    <th scope="row">No. Run</th>
+          <td>${globalSummary.no_runs}</td>
+          <td>/</td>
+          
+    </tr>
+    <tr>
+              <th scope="col">No. Errors</th>
+              <td>${globalSummary.no_errors}</td>
+              <td>s</td>
+              
+    </tr>
+    <tr>
+              <th scope="row">Avg Runtime</th>
+              <td>${globalSummary.avg_runtime}</td>
+              <td>s</td>
+            </tr>
+    <tr>
+              <th scope="row">Avg Sim Time</th>
+              <td>${globalSummary.avg_sim_time}</td>
+              <td>s</td>
+    </tr>
+    <tr>
+              <th scope="row">Max Run Time</th>
+              <td>${globalSummary.max_run_time}</td>
+              <td>s</td>
+    </tr>
+`;
+  });
+</script>
+</body>
+</html>
+
