@@ -89,6 +89,13 @@ class BDQueries:
 
         return (sum_pass / sum_status) * 100
     
+    def test_sum_run_time(self, testname):
+        sum_runtime = 0
+        documents = self.collection.find({"testname": testname})
+        for document in documents:
+            sum_runtime += document["run_time"]
+        return sum_runtime
+    
     #----------------------------------------------------------------------------------
 
     def execution_details_status(self, filename, testname):
@@ -136,6 +143,8 @@ def main():
     print("execution_details:", query_tests.execution_details("file_3.txt","tb.test_3"))
     print("get_run_ids:", query_tests.get_run_ids())
     print("get_test_names:", query_tests.get_test_names())
+    
+    print("test_sum_run_time:", query_tests.test_sum_run_time("tb.test_3"))
 
 
 if __name__ == "__main__":
