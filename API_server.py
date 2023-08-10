@@ -24,6 +24,7 @@ def get_test_details(test_name):
     max_run_time = bd_queries_tests.test_max_runtime(test_name)
     min_run_time = bd_queries_tests.test_min_runtime(test_name)
     avg_sim_time = bd_queries_tests.test_avg_simtime(test_name)
+    sum_run_time =  bd_queries_tests.test_sum_run_time(test_name)
 
     if (
         pass_rate is None
@@ -31,6 +32,7 @@ def get_test_details(test_name):
         or max_run_time is None
         or min_run_time is None
         or avg_sim_time is None
+        or sum_run_time is None
     ):
         return jsonify({"error": "Test details not found"}), 404
 
@@ -40,6 +42,7 @@ def get_test_details(test_name):
         "max_run_time": max_run_time,
         "min_run_time": min_run_time,
         "avg_sim_time": avg_sim_time,
+        "sum_run_time": sum_run_time
     }
 
     return jsonify({"test_details": test_details})
