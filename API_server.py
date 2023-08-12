@@ -52,7 +52,6 @@ def get_test_details(test_name):
 def get_execution_details(run_id, test_name):
     execution_details = bd_queries_tests.execution_details(run_id, test_name)
     execution_status = bd_queries_tests.execution_details_status(run_id, test_name)
-
     if not execution_details or not execution_status:
         return jsonify({"error": "Execution details not found"}), 404
 
@@ -66,6 +65,24 @@ def get_execution_details(run_id, test_name):
         }
     )
 
+@app.route("/api/execution_details/<test_name>", methods=["GET"])
+def get_execution_details_run_id(test_name):
+    execution_details = bd_queries_tests.execution_details_logline_run_id(test_name)
+    execution_status = bd_queries_tests.execution_details_status_run_id(test_name)
+    execution_run_id = bd_queries_tests.execution_details_run_id(test_name)
+    if not execution_details or not execution_status or not execution_run_id:
+        return jsonify({"error": "Execution details not found"}), 404
+
+    return jsonify(
+        {
+            "execution_details": {
+                "run_id": execution_run_id,
+                "testname": test_name,
+                "status": execution_status,
+                "logline": execution_details,
+            }
+        }
+    )
 
 @app.route("/api/global_summary", methods=["GET"])
 def get_global_summary():

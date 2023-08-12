@@ -62,7 +62,7 @@
           <div class="row">
         <div class="col-4">
           <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBoxRunId" name="comboBoxRunId">
-            <option selected>Select run_id</option>
+            <option value="0" selected>Select run_id</option>
           </select>
           <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBoxTestNames" name="comboBoxTestNames">
             <option selected>Select Test name</option>
@@ -89,69 +89,82 @@
             .then(data => {
                 const runIdSelect = document.getElementById('comboBoxRunId');
 
+
+                
                 data.run_ids.forEach(run => {
                     const option = document.createElement('option');
                     option.value = run.run_name;
                     option.textContent = run.run_name;
                     runIdSelect.appendChild(option);
-                   
+
+                    
                 });
-                fetch('http://localhost:5000/api/test_names')
+                
+               
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing JSON:', error);
+            });
+
+            fetch('http://localhost:5000/api/test_names')
                     .then(response => response.json())
                     .then(data => {
                     const testNameSelect = document.getElementById('comboBoxTestNames');
-
+                     
                     data.test_names.forEach(test => {
                       const option = document.createElement('option');
                       option.value = test.name;
                       option.textContent = test.name;
                       testNameSelect.appendChild(option);
                 });
+                testNameSelect.addEventListener('change', () => {
+                  const selectedTestName = testNameSelect.value;
+       
+                   fetch(`http://localhost:5000/api/execution_details/${selectedTestName}`)
+                    .then(response => response.json())
+                     .then(data => {
+                    if (data.error) {
+                     executionDetailsDiv.textContent = 'Execution details not found';
+                     } else {
+                       const executionDetails = data.execution_details;
+                       inputPassOrFail.value = executionDetails.status;
+                        runIdSelect.value = executionDetails.run_id;
+                       executionDetailsDiv.innerHTML = `
+                        <p> ${executionDetails.logline}</p>
+
+                    `;
+                }
+            })
+            .catch(error => console.error('Error fetching execution details:', error));
+        
+
+       
+    });
+
+
               })
                .catch(error => {
                 console.error('Error fetching or parsing JSON:', error);
                });
-            })
-            .catch(error => {
-                console.error('Error fetching or parsing JSON:', error);
-            });
-
-
+                   
            
-
+           
+        
     const runIdSelect = document.getElementById('comboBoxRunId');
     const testNameSelect = document.getElementById('comboBoxTestNames');
+    const testNameSelectAlone = document.getElementById('comboBoxTestNames');
     const executionDetailsDiv = document.getElementById('log_lineItem');
     const inputPassOrFail = document.getElementById('statusInput');
-    function populateTestNames() {
-        const selectedRunId = runIdSelect.value;
 
-        fetch(`http://localhost:5000/api/execution_details/${selectedRunId}/${testNameSelect}`)
-            .then(response => response.json())
-            .then(data => {
-              //const testNameSelect = document.getElementById('comboBoxTestNames');
-                testNameSelect.innerHTML = '';  // Clear existing options
-               
-                data.test_names.forEach(test => {
-                    const option = document.createElement('option');
-                    
-                    option.value = test.name;
-                    option.textContent = test.name;
-                   
-                    testNameSelect.appendChild(option);
-                   
-
-                });
-            })
-            .catch(error => console.error('Error fetching test names:', error));
-    }
-    //runIdSelect.addEventListener('change', populateTestNames);
-
-    testNameSelect.addEventListener('change', () => {
+    if(runIdSelect.value != '0')
+    { 
+      testNameSelect.addEventListener('change', () => {
         const selectedRunId = runIdSelect.value;
         const selectedTestName = testNameSelect.value;
-
-        fetch(`http://localhost:5000/api/execution_details/${selectedRunId}/${selectedTestName}`)
+        if(selectedRunId == null){
+          console.log('Run id not selected!')}
+        else{
+          fetch(`http://localhost:5000/api/execution_details/${selectedRunId}/${selectedTestName}`)
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
@@ -159,14 +172,52 @@
                 } else {
                     const executionDetails = data.execution_details;
                     inputPassOrFail.value = executionDetails.status;
+
                     executionDetailsDiv.innerHTML = `
                         <p> ${executionDetails.logline}</p>
+
                     `;
                 }
             })
             .catch(error => console.error('Error fetching execution details:', error));
-    });
+        }
 
+       
+    });
+    }else{
+     
+   
+
+    }
+
+   
+    testNameSelectAlone.addEventListener('change', () => {
+        const selectedTestNameAlone = testNameSelectAlone.value;
+       
+          fetch(`http://localhost:5000/api/execution_details/${selectedTestNameAlone}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    executionDetailsDiv.textContent = 'Execution details not found';
+                } else {
+                    const executionDetails = data.execution_details;
+                    inputPassOrFail.value = executionDetails.status;
+                    runIdSelect.value = executionDetails.run_id;
+                    executionDetailsDiv.innerHTML = `
+                        <p> ${executionDetails.logline}</p>
+
+                    `;
+                }
+            })
+            .catch(error => console.error('Error fetching execution details:', error));
+        
+
+       
+    });
+   
+    
+    
+    
    
 </script>
 </html>

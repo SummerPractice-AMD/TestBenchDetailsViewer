@@ -94,7 +94,8 @@ margin-top: 10rem;
 <script>
   const summaryContainer = document.getElementById("tableGlobalSummary");
  
-  fetch("http://localhost:5000/api/global_summary")
+   fetch("http://localhost:5000/api/global_summary"
+   )
   .then((response) => response.json())
   .then(data => { const globalSummary = data.global_summary;
 

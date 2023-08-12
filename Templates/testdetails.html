@@ -115,7 +115,7 @@
             .then(response => response.json())
             .then(data => {
               const testNameSelect = document.getElementById('comboBox');
-
+                const test = data.test_names
                data.test_names.forEach(test => {
                 const option = document.createElement('option');
                 option.value = test.name;
@@ -134,7 +134,7 @@
               testNameSelectItem.addEventListener('change', () => {
               const selectedTestName = testNameSelectItem.value;
 
-            fetch(`http://localhost:5000/api/test_details/${selectedTestName}`)
+                fetch(`http://localhost:5000/api/test_details/${selectedTestName}`)
                 .then(response => response.json())
                 .then(data => { 
                     if (data.error) {

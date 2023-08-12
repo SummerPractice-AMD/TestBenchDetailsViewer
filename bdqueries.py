@@ -111,6 +111,18 @@ class BDQueries:
     def execution_details(self, filename, testname):
         documents = self.collection.find({"run_id": filename, "testname": testname})
         return list(documents)[0]["loglines"]
+    
+    def execution_details_run_id(self, testname):
+        documents = self.collection.find({ "testname": testname})
+        return list(documents)[0]["run_id"]
+    
+    def execution_details_status_run_id(self, testname):
+        documents = self.collection.find({ "testname": testname})
+        return list(documents)[0]["status"]
+
+    def execution_details_logline_run_id(self, testname):
+        documents = self.collection.find({ "testname": testname})
+        return list(documents)[0]["loglines"]
 
     # ---------------------------------------------------------------------------------
 
@@ -147,6 +159,7 @@ def main():
     print("test_pass_rate:", query_tests.test_pass_rate("tb.test_3"))
     print("execution_details_status:",query_tests.execution_details_status("file_3.txt", "tb.test_3"),)
     print("execution_details:", query_tests.execution_details("file_3.txt", "tb.test_3"))
+    print("execution_details_run_id:", query_tests.execution_details_run_id("tb.test_3"))
     print("get_run_ids:", query_tests.get_run_ids())
     print("get_test_names:", query_tests.get_test_names())
     print("test_sum_run_time:", query_tests.test_sum_run_time("tb.test_3"))
