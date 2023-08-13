@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, request
 from bdqueries import BDQueries
 import json
-from generatejson import parse 
+# from generatejson import parse 
 import yaml
 
 app = Flask(__name__)
