@@ -111,6 +111,18 @@ class BDQueries:
     def execution_details(self, filename, testname):
         documents = self.collection.find({"run_id": filename, "test_name": testname})
         return list(documents)[0]["loglines"]
+    
+    def execution_details_run_id(self, testname):
+        documents = self.collection.find({ "test_name": testname})
+        return list(documents)[0]["run_id"]
+    
+    def execution_details_status_run_id(self, testname):
+        documents = self.collection.find({ "test_name": testname})
+        return list(documents)[0]["status"]
+
+    def execution_details_logline_run_id(self, testname):
+        documents = self.collection.find({ "test_name": testname})
+        return list(documents)[0]["loglines"]
 
     # ---------------------------------------------------------------------------------
 
@@ -140,17 +152,18 @@ def main():
     print("file_max_runtime:", query_testruns.file_max_runtime())
 
     query_tests = BDQueries("mongodb://localhost:27017", "RegressionDetails", "tests")
-    print("test_avg_runtime:", query_tests.test_avg_runtime("tb.test_3"))
-    print("test_avg_simtime:", query_tests.test_avg_simtime("tb.test_3"))
-    print("test_max_runtime:", query_tests.test_max_runtime("tb.test_3"))
-    print("test_min_runtime:", query_tests.test_min_runtime("tb.test_3"))
-    print("test_pass_rate:", query_tests.test_pass_rate("tb.test_3"))
-    print("execution_details_status:",query_tests.execution_details_status("file_3.txt", "tb.test_3"),)
-    print("execution_details:", query_tests.execution_details("file_3.txt", "tb.test_3"))
+    print("test_avg_runtime:", query_tests.test_avg_runtime("run_test_004"))
+    print("test_avg_simtime:", query_tests.test_avg_simtime("run_test_004"))
+    print("test_max_runtime:", query_tests.test_max_runtime("run_test_004"))
+    print("test_min_runtime:", query_tests.test_min_runtime("run_test_004"))
+    print("test_pass_rate:", query_tests.test_pass_rate("run_test_004"))
+    print("execution_details_status:",query_tests.execution_details_status("1", "run_test_004"),)
+    print("execution_details:", query_tests.execution_details("1", "run_test_004"))
+    print("execution_details_run_id:", query_tests.execution_details_run_id("run_test_004"))
     print("get_run_ids:", query_tests.get_run_ids())
     print("get_test_names:", query_tests.get_test_names())
-    print("test_sum_run_time:", query_tests.test_sum_run_time("tb.test_3"))
-    print("test_last_status:", query_tests.test_last_status("tb.test_2"))
+    print("test_sum_run_time:", query_tests.test_sum_run_time("run_test_004"))
+    print("test_last_status:", query_tests.test_last_status("run_test_005"))
 
 
 if __name__ == "__main__":

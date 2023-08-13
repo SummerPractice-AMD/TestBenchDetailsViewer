@@ -1,8 +1,10 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from bdqueries import BDQueries
+import json
+from generatejson import parse 
 import yaml
 
-app = Flask(__name__, template_folder='Templates')
+app = Flask(__name__)
 
 
 @app.route("/api/run_ids", methods=["GET"])
@@ -52,7 +54,6 @@ def get_test_details(test_name):
 def get_execution_details(run_id, test_name):
     execution_details = bd_queries_tests.execution_details(run_id, test_name)
     execution_status = bd_queries_tests.execution_details_status(run_id, test_name)
-
     if not execution_details or not execution_status:
         return jsonify({"error": "Execution details not found"}), 404
 
@@ -66,6 +67,24 @@ def get_execution_details(run_id, test_name):
         }
     )
 
+@app.route("/api/execution_details/<test_name>", methods=["GET"])
+def get_execution_details_run_id(test_name):
+    execution_details = bd_queries_tests.execution_details_logline_run_id(test_name)
+    execution_status = bd_queries_tests.execution_details_status_run_id(test_name)
+    execution_run_id = bd_queries_tests.execution_details_run_id(test_name)
+    if not execution_details or not execution_status or not execution_run_id:
+        return jsonify({"error": "Execution details not found"}), 404
+
+    return jsonify(
+        {
+            "execution_details": {
+                "run_id": execution_run_id,
+                "testname": test_name,
+                "status": execution_status,
+                "logline": execution_details,
+            }
+        }
+    )
 
 @app.route("/api/global_summary", methods=["GET"])
 def get_global_summary():
@@ -88,19 +107,21 @@ def get_global_summary():
 
     return jsonify({"global_summary": global_summary})
 
-
-
 @app.route('/')
+def base():
+        return render_template("base.html")
+
+@app.route('/index.html')
 def index():
-        return render_template("index.html")
+        return render_template("/regressions/index.html")
 
 @app.route('/testdetails.html')
 def testdetails():
-        return render_template("testdetails.html")
+        return render_template("/regressions/testdetails.html")
 
 @app.route('/executiondetails.html')
 def executiondetails():
-        return render_template("executiondetails.html")
+        return render_template("/regressions/executiondetails.html")
 
 
 if __name__ == "__main__":
