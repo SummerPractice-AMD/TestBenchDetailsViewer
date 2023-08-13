@@ -1,8 +1,10 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from bdqueries import BDQueries
+import json
+from generatejson import parse 
 import yaml
 
-app = Flask(__name__, template_folder='Templates')
+app = Flask(__name__)
 
 
 @app.route("/api/run_ids", methods=["GET"])
@@ -105,19 +107,21 @@ def get_global_summary():
 
     return jsonify({"global_summary": global_summary})
 
-
-
 @app.route('/')
+def base():
+        return render_template("base.html")
+
+@app.route('/index.html')
 def index():
-        return render_template("index.html")
+        return render_template("/regressions/index.html")
 
 @app.route('/testdetails.html')
 def testdetails():
-        return render_template("testdetails.html")
+        return render_template("/regressions/testdetails.html")
 
 @app.route('/executiondetails.html')
 def executiondetails():
-        return render_template("executiondetails.html")
+        return render_template("/regressions/executiondetails.html")
 
 
 if __name__ == "__main__":

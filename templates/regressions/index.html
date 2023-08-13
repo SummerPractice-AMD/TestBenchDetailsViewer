@@ -1,4 +1,97 @@
-<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+{% block title %} Global Summary {% endblock %}
+
+{%block div%}
+
+    <h1>Global summary</h1>
+    <div class="container">
+      <div class="col-4">
+    <table class="table table-dark table-hover" id="tableGlobalSummary">
+      <tr>
+        <th scope="col"  colspan="2">Global summary</th>
+      </tr>
+      <tr>
+        <th scope="row">no runs</th>
+        <td>x</td>
+      </tr>
+      <tr>
+        <th scope="row">no errors</th>
+        <td>x s</td>
+        
+      </tr>
+      <tr>
+        <th scope="row">avg runtime</th>
+        <td>x s</td>
+        
+      </tr>
+      <tr>
+          <th scope="row">avg sim time</th>
+          <td>x s</td>
+         
+      </tr>
+      <tr>
+          <th scope="row">max run time</th>
+          <td>x s</td>
+          
+        </tr>
+      </table>
+    </div>
+    </div>
+
+    <script>
+  
+      const summaryContainer = document.getElementById("tableGlobalSummary");
+       
+       fetch("/api/global_summary")
+      .then((response) => response.json())
+      .then(data => { const globalSummary = data.global_summary;
+      
+      
+      summaryContainer.innerHTML = `
+      <tr >
+                  <th scope="col"  colspan="3">Global Summary</th>
+                </tr>
+      <tr>
+        <th scope="row">No. Run</th>
+              <td>${globalSummary.no_runs}</td>
+              <td>/</td>
+              
+        </tr>
+        <tr>
+                  <th scope="col">No. Errors</th>
+                  <td>${globalSummary.no_errors}</td>
+                  <td>s</td>
+                  
+        </tr>
+        <tr>
+                  <th scope="row">Avg Runtime</th>
+                  <td>${globalSummary.avg_runtime}</td>
+                  <td>s</td>
+                </tr>
+        <tr>
+                  <th scope="row">Avg Sim Time</th>
+                  <td>${globalSummary.avg_sim_time.toFixed(2)}</td>
+                  <td>s</td>
+        </tr>
+        <tr>
+                  <th scope="row">Max Run Time</th>
+                  <td>${globalSummary.max_run_time}</td>
+                  <td>s</td>
+        </tr>
+      `;
+      });
+      
+      </script>
+      
+
+{% endblock %} 
+
+
+</html>
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,28 +103,7 @@
     <title>Global summary</title>
 </head>
 <style>
-  
-.navbar-collapse{
-
-display: flex;
-justify-content: flex-start;
-
-}
-.table {
-border-radius:  .375rem;
-margin-left: 29rem;
-}
-.scrollspy-example{
-height: 200px;
-overflow: hidden;
-overflow-y: scroll;
-}
-.table-scrollsd{
-margin-top: 10rem;
-
-}
-
-
+ 
 </style>
 <body class="body">
     
@@ -51,6 +123,9 @@ margin-top: 10rem;
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/executiondetails.html">Execution details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/draganddrop.html">drag</a>
               </li>
             </ul>
           </div>
@@ -94,7 +169,7 @@ margin-top: 10rem;
 <script>
   const summaryContainer = document.getElementById("tableGlobalSummary");
  
-   fetch("http://localhost:5000/api/global_summary"
+   fetch("/api/global_summary"
    )
   .then((response) => response.json())
   .then(data => { const globalSummary = data.global_summary;
@@ -136,4 +211,7 @@ margin-top: 10rem;
 </script>
 </body>
 </html>
+ -->
+
+
 
