@@ -1,0 +1,388 @@
+<html>
+{% extends "base.html" %}
+
+{% block title %} Execution Details {% endblock %}
+
+{%block div%}
+
+<h1>Execution Details</h1>
+<div class="container">
+  <div class="table-scrollsd">
+    <div class="row">
+  <div class="col-4">
+    <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBoxRunId" name="comboBoxRunId">
+      <option value="0" selected>Select run_id</option>
+    </select>
+    <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBoxTestNames" name="comboBoxTestNames">
+      <option selected>Select Test name</option>
+    </select>
+    <input class="form-control" type="text" value="" aria-label="Disabled input example"  readonly id="statusInput">
+  </div>
+  <div class="col">
+    <div data-bs-spy="scroll" id="log_lineItem" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<script>
+
+  fetch('/api/run_ids')
+     .then(response => response.json())
+     .then(data => {
+         const runIdSelect = document.getElementById('comboBoxRunId');
+  
+  
+         
+         data.run_ids.forEach(run => {
+             const option = document.createElement('option');
+             option.value = run.run_name;
+             option.textContent = run.run_name;
+             runIdSelect.appendChild(option);
+  
+             
+         });
+         
+        
+     })
+     .catch(error => {
+         console.error('Error fetching or parsing JSON:', error);
+     });
+  
+     fetch('/api/test_names')
+             .then(response => response.json())
+             .then(data => {
+             const testNameSelect = document.getElementById('comboBoxTestNames');
+              
+             data.test_names.forEach(test => {
+               const option = document.createElement('option');
+               option.value = test.name;
+               option.textContent = test.name;
+               testNameSelect.appendChild(option);
+         });
+       })
+        .catch(error => {
+         console.error('Error fetching or parsing JSON:', error);
+        });
+  
+    
+  
+    
+  
+  const runIdSelect = document.getElementById('comboBoxRunId');
+  const testNameSelect = document.getElementById('comboBoxTestNames');
+   const testNameSelectAlone = document.getElementById('comboBoxTestNames');
+  const executionDetailsDiv = document.getElementById('log_lineItem');
+  const inputPassOrFail = document.getElementById('statusInput');
+  
+  // testNameSelect.addEventListener('change', () => {
+  //     const selectedTestName = testNameSelect.value;
+  
+  //      fetch(`/api/execution_details/${selectedTestName}`)
+  //       .then(response => response.json())
+  //        .then(data => {
+  //       if (data.error) {
+  //        executionDetailsDiv.textContent = 'Execution details not found';
+  //        } else {
+  //          const executionDetails = data.execution_details;
+  //          inputPassOrFail.value = executionDetails.status;
+  //           runIdSelect.value = executionDetails.run_id;
+  //          executionDetailsDiv.innerHTML = `
+  //           <p> ${executionDetails.logline}</p>
+  
+  //       `;
+  //   }
+  // })
+  // .catch(error => console.error('Error fetching execution details:', error));
+  // });
+  
+  
+  testNameSelect.addEventListener('change', () => {
+  const selectedRunId = runIdSelect.value;
+  const selectedTestName = testNameSelect.value;
+  if(selectedRunId == null){
+   console.log('Run id not selected!')}
+  else{
+   fetch(`/api/execution_details/${selectedRunId}/${selectedTestName}`)
+     .then(response => response.json())
+     .then(data => {
+         if (data.error) {
+             executionDetailsDiv.textContent = 'Execution details not found';
+         } else {
+             const executionDetails = data.execution_details;
+             inputPassOrFail.value = executionDetails.status;
+  
+             executionDetailsDiv.innerHTML = `
+                 <p> ${executionDetails.logline}</p>
+  
+             `;
+         }
+     })
+     .catch(error => console.error('Error fetching execution details:', error));
+  }
+  
+  
+  });
+  
+  // testNameSelectAlone.addEventListener('change', () => {
+  // const selectedTestNameAlone = testNameSelectAlone.value;
+  
+  //  fetch(`/api/execution_details/${selectedTestNameAlone}`)
+  //    .then(response => response.json())
+  //    .then(data => {
+  //        if (data.error) {
+  //            executionDetailsDiv.textContent = 'Execution details not found';
+  //        } else {
+  //            const executionDetails = data.execution_details;
+  //            inputPassOrFail.value = executionDetails.status;
+  //            runIdSelect.value = executionDetails.run_id;
+  //            executionDetailsDiv.innerHTML = `
+  //                <p> ${executionDetails.logline}</p>
+  
+  //            `;
+  //        }
+  //    })
+  //    .catch(error => console.error('Error fetching execution details:', error));
+  
+  
+  
+  // });
+  
+  
+  
+  
+  </script>
+
+{% endblock %} 
+
+
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <title>Execution details</title>
+</head>
+<style>
+  
+  .navbar-collapse{
+  
+  display: flex;
+  justify-content: flex-start;
+  
+  }
+  .table {
+  border-radius:  .375rem;
+  margin-left: 29rem;
+  }
+  .scrollspy-example{
+  height: 200px;
+  overflow: hidden;
+  overflow-y: scroll;
+  }
+  .table-scrollsd{
+  margin-top: 10rem;
+  
+  }
+  
+  
+  </style>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark"">
+        <div class="container-fluid">
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Global summary</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/testdetails.html">Test details</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/executiondetails.html">Execution details</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+    <div>
+    <h1>Execution details</h1>
+      <div class="container">
+        <div class="table-scrollsd">
+          <div class="row">
+        <div class="col-4">
+          <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBoxRunId" name="comboBoxRunId">
+            <option value="0" selected>Select run_id</option>
+          </select>
+          <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="comboBoxTestNames" name="comboBoxTestNames">
+            <option selected>Select Test name</option>
+          </select>
+          <input class="form-control" type="text" value="" aria-label="Disabled input example"  readonly id="statusInput">
+        </div>
+        <div class="col-4">
+          <div data-bs-spy="scroll" id="log_lineItem" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+    
+
+
+    
+      </div>
+</body>
+<script>
+             fetch('/api/run_ids')
+            .then(response => response.json())
+            .then(data => {
+                const runIdSelect = document.getElementById('comboBoxRunId');
+
+
+                
+                data.run_ids.forEach(run => {
+                    const option = document.createElement('option');
+                    option.value = run.run_name;
+                    option.textContent = run.run_name;
+                    runIdSelect.appendChild(option);
+
+                    
+                });
+                
+               
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing JSON:', error);
+            });
+
+            fetch('/api/test_names')
+                    .then(response => response.json())
+                    .then(data => {
+                    const testNameSelect = document.getElementById('comboBoxTestNames');
+                     
+                    data.test_names.forEach(test => {
+                      const option = document.createElement('option');
+                      option.value = test.name;
+                      option.textContent = test.name;
+                      testNameSelect.appendChild(option);
+                });
+                testNameSelect.addEventListener('change', () => {
+                  const selectedTestName = testNameSelect.value;
+       
+                   fetch(`/api/execution_details/${selectedTestName}`)
+                    .then(response => response.json())
+                     .then(data => {
+                    if (data.error) {
+                     executionDetailsDiv.textContent = 'Execution details not found';
+                     } else {
+                       const executionDetails = data.execution_details;
+                       inputPassOrFail.value = executionDetails.status;
+                        runIdSelect.value = executionDetails.run_id;
+                       executionDetailsDiv.innerHTML = `
+                        <p> ${executionDetails.logline}</p>
+
+                    `;
+                }
+            })
+            .catch(error => console.error('Error fetching execution details:', error));
+        
+
+       
+    });
+
+
+              })
+               .catch(error => {
+                console.error('Error fetching or parsing JSON:', error);
+               });
+                   
+           
+           
+        
+    const runIdSelect = document.getElementById('comboBoxRunId');
+    const testNameSelect = document.getElementById('comboBoxTestNames');
+    const testNameSelectAlone = document.getElementById('comboBoxTestNames');
+    const executionDetailsDiv = document.getElementById('log_lineItem');
+    const inputPassOrFail = document.getElementById('statusInput');
+
+    if(runIdSelect.value != '0')
+    { 
+      testNameSelect.addEventListener('change', () => {
+        const selectedRunId = runIdSelect.value;
+        const selectedTestName = testNameSelect.value;
+        if(selectedRunId == null){
+          console.log('Run id not selected!')}
+        else{
+          fetch(`/api/execution_details/${selectedRunId}/${selectedTestName}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    executionDetailsDiv.textContent = 'Execution details not found';
+                } else {
+                    const executionDetails = data.execution_details;
+                    inputPassOrFail.value = executionDetails.status;
+
+                    executionDetailsDiv.innerHTML = `
+                        <p> ${executionDetails.logline}</p>
+
+                    `;
+                }
+            })
+            .catch(error => console.error('Error fetching execution details:', error));
+        }
+
+       
+    });
+    }else{
+     
+   
+
+    }
+
+   
+    testNameSelectAlone.addEventListener('change', () => {
+        const selectedTestNameAlone = testNameSelectAlone.value;
+       
+          fetch(`/api/execution_details/${selectedTestNameAlone}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    executionDetailsDiv.textContent = 'Execution details not found';
+                } else {
+                    const executionDetails = data.execution_details;
+                    inputPassOrFail.value = executionDetails.status;
+                    runIdSelect.value = executionDetails.run_id;
+                    executionDetailsDiv.innerHTML = `
+                        <p> ${executionDetails.logline}</p>
+
+                    `;
+                }
+            })
+            .catch(error => console.error('Error fetching execution details:', error));
+        
+
+       
+    });
+   
+    
+    
+    
+   
+</script>
+</html> -->
