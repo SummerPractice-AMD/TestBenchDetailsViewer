@@ -18,7 +18,7 @@
     </select>
     <input class="form-control" type="text" value="" aria-label="Disabled input example"  readonly id="statusInput">
   </div>
-  <div class="col-4">
+  <div class="col">
     <div data-bs-spy="scroll" id="log_lineItem" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
     </div>
   </div>
@@ -127,29 +127,29 @@
   
   });
   
-  testNameSelectAlone.addEventListener('change', () => {
-  const selectedTestNameAlone = testNameSelectAlone.value;
+  // testNameSelectAlone.addEventListener('change', () => {
+  // const selectedTestNameAlone = testNameSelectAlone.value;
   
-   fetch(`/api/execution_details/${selectedTestNameAlone}`)
-     .then(response => response.json())
-     .then(data => {
-         if (data.error) {
-             executionDetailsDiv.textContent = 'Execution details not found';
-         } else {
-             const executionDetails = data.execution_details;
-             inputPassOrFail.value = executionDetails.status;
-             runIdSelect.value = executionDetails.run_id;
-             executionDetailsDiv.innerHTML = `
-                 <p> ${executionDetails.logline}</p>
+  //  fetch(`/api/execution_details/${selectedTestNameAlone}`)
+  //    .then(response => response.json())
+  //    .then(data => {
+  //        if (data.error) {
+  //            executionDetailsDiv.textContent = 'Execution details not found';
+  //        } else {
+  //            const executionDetails = data.execution_details;
+  //            inputPassOrFail.value = executionDetails.status;
+  //            runIdSelect.value = executionDetails.run_id;
+  //            executionDetailsDiv.innerHTML = `
+  //                <p> ${executionDetails.logline}</p>
   
-             `;
-         }
-     })
-     .catch(error => console.error('Error fetching execution details:', error));
+  //            `;
+  //        }
+  //    })
+  //    .catch(error => console.error('Error fetching execution details:', error));
   
   
   
-  });
+  // });
   
   
   
