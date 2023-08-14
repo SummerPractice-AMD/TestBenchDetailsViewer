@@ -1,4 +1,5 @@
 
+
 const summaryContainer = document.getElementById("tableGlobalSummary");
  
    fetch("/api/global_summary")
