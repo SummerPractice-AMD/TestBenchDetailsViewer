@@ -262,6 +262,7 @@ def get_listjson(path):
             output_testrun["tests"].append(output_test)
         listjson.append(output_testrun)
     json_output = TestRunsEncoder().encode(listjson)
+<<<<<<< Updated upstream
     return json.loads(json_output)
 
 
@@ -280,3 +281,6 @@ output_json_file = "outtt.json"
 with open(output_json_file, "w") as outfile:
     json.dump(json_output, outfile, indent=4) """
 
+=======
+    return json.loads(json_output)
+>>>>>>> Stashed changes
