@@ -131,9 +131,9 @@ def base():
     return render_template("base.html")
 
 
-@app.route("/index.html")
+@app.route("/globalsummary.html")
 def index():
-    return render_template("/regressions/index.html")
+    return render_template("/regressions/globalsummary.html")
 
 
 @app.route("/testdetails.html")
