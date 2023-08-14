@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+{% extends "base.html" %}
+
+{% block title %} Pass rates {% endblock %}
+
+{%block div%}
+
+
+<head>
+    <link rel="stylesheet" href="\static\passrates.css">
+    <script src="\static\passrates.js"></script>
+</head>
+
+
+
+<h1>Pass rates</h1>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Test name</th>
+                <th>Last status</th>
+                <th onclick="sortColumn('pass_rate')">Pass rate</th>
+            </tr>
+        </thead>
+        <tbody id="passRatesTable"></tbody>
+    </table>
+</body>
+
+
+{% endblock %}
+
+</html>

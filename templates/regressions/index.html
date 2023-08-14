@@ -4,12 +4,12 @@
 
 {%block div%}
 
-    <h1>Global summary</h1>
-    <div class="container">
-      <div class="col-4">
+<h1>Global summary</h1>
+<div class="container">
+  <div class="col-4">
     <table class="table table-dark table-hover" id="tableGlobalSummary">
       <tr>
-        <th scope="col"  colspan="2">Global summary</th>
+        <th scope="col" colspan="2">Global summary</th>
       </tr>
       <tr>
         <th scope="row">no runs</th>
@@ -18,27 +18,13 @@
       <tr>
         <th scope="row">no errors</th>
         <td>x s</td>
-        
+
       </tr>
       <tr>
         <th scope="row">avg runtime</th>
         <td>x s</td>
-        
-      </tr>
-      <tr>
-          <th scope="row">avg sim time</th>
-          <td>x s</td>
-         
-      </tr>
-      <tr>
-          <th scope="row">max run time</th>
-          <td>x s</td>
-          
-        </tr>
-      </table>
-    </div>
-    </div>
 
+<<<<<<< HEAD
    <script>
   
       const summaryContainer = document.getElementById("tableGlobalSummary");
@@ -48,6 +34,33 @@
       .then(data => { const globalSummary = data.global_summary;
       
       
+=======
+      </tr>
+      <tr>
+        <th scope="row">avg sim time</th>
+        <td>x s</td>
+
+      </tr>
+      <tr>
+        <th scope="row">max run time</th>
+        <td>x s</td>
+
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+
+  const summaryContainer = document.getElementById("tableGlobalSummary");
+
+  fetch("/api/global_summary")
+    .then((response) => response.json())
+    .then(data => {
+      const globalSummary = data.global_summary;
+
+
+>>>>>>> c9f49e3f33815122af05fc9839d670ff5e008c5c
       summaryContainer.innerHTML = `
       <tr >
                   <th scope="col"  colspan="3">Global Summary</th>
@@ -80,11 +93,18 @@
                   <td>s</td>
         </tr>
       `;
+<<<<<<< HEAD
       });
       
       </script>
+=======
+    });
+>>>>>>> c9f49e3f33815122af05fc9839d670ff5e008c5c
 
-{% endblock %} 
+</script>
+
+
+{% endblock %}
 
 
 </html>
@@ -211,6 +231,3 @@
 </body>
 </html>
  -->
-
-
-
