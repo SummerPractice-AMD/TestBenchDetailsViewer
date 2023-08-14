@@ -1,7 +1,5 @@
 from flask import Flask, jsonify, render_template, request
 from bdqueries import BDQueries
-import json
-# from generatejson import parse 
 import yaml
 
 app = Flask(__name__)
@@ -26,7 +24,7 @@ def get_test_details(test_name):
     max_run_time = bd_queries_tests.test_max_runtime(test_name)
     min_run_time = bd_queries_tests.test_min_runtime(test_name)
     avg_sim_time = bd_queries_tests.test_avg_simtime(test_name)
-    sum_run_time =  bd_queries_tests.test_sum_run_time(test_name)
+    sum_run_time = bd_queries_tests.test_sum_run_time(test_name)
 
     if (
         pass_rate is None
@@ -44,7 +42,7 @@ def get_test_details(test_name):
         "max_run_time": max_run_time,
         "min_run_time": min_run_time,
         "avg_sim_time": avg_sim_time,
-        "sum_run_time": sum_run_time
+        "sum_run_time": sum_run_time,
     }
 
     return jsonify({"test_details": test_details})
@@ -67,6 +65,7 @@ def get_execution_details(run_id, test_name):
         }
     )
 
+
 @app.route("/api/execution_details/<test_name>", methods=["GET"])
 def get_execution_details_run_id(test_name):
     execution_details = bd_queries_tests.execution_details_logline_run_id(test_name)
@@ -85,6 +84,7 @@ def get_execution_details_run_id(test_name):
             }
         }
     )
+
 
 @app.route("/api/global_summary", methods=["GET"])
 def get_global_summary():
@@ -107,21 +107,47 @@ def get_global_summary():
 
     return jsonify({"global_summary": global_summary})
 
-@app.route('/')
+@app.route("/api/pass_rates", methods=["GET"])
+def get_pass_rates():
+    test_names = bd_queries_tests.get_test_names()
+    test_list = []
+    for test_name in test_names:
+        last_status = bd_queries_tests.test_last_status(test_name)
+        pass_rate = bd_queries_tests.test_pass_rate(test_name)
+
+        test_list_item ={
+            "testname" : test_name,
+            "last_status" : last_status,
+            "pass_rate" : pass_rate,
+        }
+
+        test_list.append(test_list_item)
+
+    return jsonify({"pass_rates": test_list})
+
+
+@app.route("/")
 def base():
-        return render_template("base.html")
+    return render_template("base.html")
 
-@app.route('/index.html')
+
+@app.route("/index.html")
 def index():
-        return render_template("/regressions/index.html")
+    return render_template("/regressions/index.html")
 
-@app.route('/testdetails.html')
+
+@app.route("/testdetails.html")
 def testdetails():
-        return render_template("/regressions/testdetails.html")
+    return render_template("/regressions/testdetails.html")
 
-@app.route('/executiondetails.html')
+
+@app.route("/executiondetails.html")
 def executiondetails():
-        return render_template("/regressions/executiondetails.html")
+    return render_template("/regressions/executiondetails.html")
+
+@app.route("/passrates.html")
+def passrates():
+    return render_template("/regressions/passrates.html")
 
 
 if __name__ == "__main__":
@@ -138,6 +164,8 @@ if __name__ == "__main__":
     testruns_table_name = "testruns"
 
     bd_queries_tests = BDQueries(connection_string, database_name, tests_table_name)
-    bd_queries_testruns = BDQueries(connection_string, database_name, testruns_table_name)
+    bd_queries_testruns = BDQueries(
+        connection_string, database_name, testruns_table_name
+    )
 
     app.run(debug=True)
