@@ -48,6 +48,19 @@ fetch('/api/run_ids')
         const executionDetailsDiv = document.getElementById('log_lineItem');
         const inputPassOrFail = document.getElementById('statusInput');
       
+        
+      function changeColor() {
+        const inputPassOrFail = document.getElementById('statusInput');
+        
+        if (inputPassOrFail.value === "PASS") {
+            inputPassOrFail.style.background="green";
+        } else if (inputPassOrFail.value === "FAIL") {
+            inputPassOrFail.style.background = "red";
+        } else {
+            inputPassOrFail.style.background = ""; // Reset color
+        }
+    }
+    changeColor();
 testNameSelect.addEventListener('change', () => {
     const selectedRunId = runIdSelect.value;
     const selectedTestName = testNameSelect.value;
@@ -62,7 +75,7 @@ testNameSelect.addEventListener('change', () => {
            } else {
                const executionDetails = data.execution_details;
                inputPassOrFail.value = executionDetails.status;
-    
+               changeColor();
                executionDetailsDiv.innerHTML = `
                    <p> ${executionDetails.logline}</p>
     
@@ -89,7 +102,7 @@ testNameSelect.addEventListener('change', () => {
                runIdSelect.value = executionDetails.run_id;
                executionDetailsDiv.innerHTML = `
                    <p> ${executionDetails.logline}</p>
-    
+               changeColor();
                `;
            }
        })
@@ -100,5 +113,6 @@ testNameSelect.addEventListener('change', () => {
     });
     
       }); 
+
 
 
