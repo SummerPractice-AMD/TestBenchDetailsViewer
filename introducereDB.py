@@ -35,7 +35,7 @@ class DatabaseLoader:
 
 # introducere in baza de date a unei liste de file-uri
     def load_from_json_list(self, json_data):
-        data_list = json_data       
+        data_list = json_data
         for data in data_list:
             run_id = data["filename"]
 

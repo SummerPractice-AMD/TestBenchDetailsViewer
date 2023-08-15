@@ -2,7 +2,6 @@ import json
 import os
 from pathlib import Path
 from json import JSONEncoder
-from typing import Any
 import uuid
 
 
@@ -57,7 +56,7 @@ def get_realtimefile(file_content):
     part = parts[2].split()
     realtimefile = part[11]
     return float(realtimefile)
-    
+
 
 # returneaza numele autorului continutului fisierului introdus
 def get_autorsname(file_content):
@@ -71,7 +70,7 @@ def get_autorsname(file_content):
 def get_testname(part_tests):
     autorsname = get_autorsname(part_tests)
     words = part_tests.split()
-    testname = words[2]    
+    testname = words[2]  
     if testname.split(".")[0] != autorsname:
         return testname
 
@@ -123,8 +122,8 @@ def get_logline(file_content):
         if len(words) == 10 and words[5] == "execute":
             logline = ""
             startwriting = 1
-        if startwriting == 1 :
-            if len(words)>2 and words[2].split('.')[0] == autorsname:
+        if startwriting == 1:
+            if len(words) > 2 and words[2].split('.')[0] == autorsname:
                 for word in range(3, len(words)):
                     logline = logline + words[word] + " "
                 logline = logline + '\n'
@@ -133,11 +132,15 @@ def get_logline(file_content):
                     logline = logline + word + " "
                 logline = logline + '\n'
         if len(words) == 11 and startwriting == 1 and words[10] == "packets":
-            logline = logline + words[3] + " " + words[4] + " " + words[5] + " " + words[6] + " " + words[7] + " " + words[8] + " " + words[9] + " " + words[10] + "\n"
+            logline = logline + words[3] + " " + words[4] + " " + words[5] + " " + \
+                words[6] + " " + words[7] + " " + words[8] + " " + words[9] + " " + \
+                words[10] + "\n"
             startwriting = 0
             loglinelist.append(logline)
         if len(words) == 12 and startwriting == 1 and words[7] == "Failed:":
-            logline = logline + words[3] + " " + words[4] + " " + words[5] + " " + words[6] + " " + words[7] + " " + words[8] + " " + words[9] + " " + words[10] + " " + words[11] + "\n"
+            logline = logline + words[3] + " " + words[4] + " " + words[5] + " " + \
+                words[6] + " " + words[7] + " " + words[8] + " " + words[9] + " " + \
+                words[10] + " " + words[11] + "\n"
             startwriting = 0
             loglinelist.append(logline)
     return loglinelist
@@ -161,7 +164,7 @@ def parse(string):
     testssimtime = get_testssimtime(string)
     testsrealtime = get_testsrealtime(string)
     testslogline = get_logline(string)
-            
+
     for testname, teststatus, testsimtime, testrealtime, testlogline in zip(testsname, testsstatus, testssimtime, testsrealtime, testslogline):
         test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
         tests.append(test)
@@ -239,22 +242,22 @@ def get_listjson(path):
             justneededpart = file_content.split("tests")
             testparts = justneededpart[0].split("Running")
             for eachtestpart in testparts:
-                if get_testname(eachtestpart) != None:
+                if get_testname(eachtestpart) is not None:
                     testsname.append(get_testname(eachtestpart))
             testsstatus = get_testsstatus(file_content)
             testssimtime = get_testssimtime(file_content)
             testsrealtime = get_testsrealtime(file_content)
             testslogline = get_logline(file_content)
-            
+
             for testname, teststatus, testsimtime, testrealtime, testlogline in zip(testsname, testsstatus, testssimtime, testsrealtime, testslogline):
                 test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
                 tests.append(test)
             filetests.append(tests)
-    
+
     for name, testlist, errors, simtime, realtime in zip(filetestname, filetests, errorsfile, simtimefile, realtimefile):
         testrun = TestRuns(name, testlist, errors, simtime, realtime)
         testsrun.append(testrun)
-    
+
     for testrun in testsrun:
         output_testrun = {
             "filename": testrun.filename,

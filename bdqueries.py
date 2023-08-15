@@ -112,11 +112,11 @@ class BDQueries:
     def execution_details(self, filename, testname):
         documents = self.collection.find({"run_id": filename, "test_name": testname})
         return list(documents)[0]["loglines"]
-    
+
     def execution_details_run_id(self, testname):
         documents = self.collection.find({"test_name": testname})
         return list(documents)[0]["run_id"]
-    
+
     def execution_details_status_run_id(self, testname):
         documents = self.collection.find({"test_name": testname})
         return list(documents)[0]["status"]

@@ -39,7 +39,7 @@ def main():
         loader.load_from_json(json_output_from_file)
     else:
         print("Specify either --dir or --file option.")
-   
-        
+
+
 if __name__ == "__main__":
     main()
