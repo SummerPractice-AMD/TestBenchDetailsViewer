@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template
 from bdqueries import BDQueries
 import yaml
 
@@ -107,6 +107,7 @@ def get_global_summary():
 
     return jsonify({"global_summary": global_summary})
 
+
 @app.route("/api/pass_rates", methods=["GET"])
 def get_pass_rates():
     test_names = bd_queries_tests.get_test_names()
@@ -115,10 +116,10 @@ def get_pass_rates():
         last_status = bd_queries_tests.test_last_status(test_name)
         pass_rate = bd_queries_tests.test_pass_rate(test_name)
 
-        test_list_item ={
-            "testname" : test_name,
-            "last_status" : last_status,
-            "pass_rate" : pass_rate,
+        test_list_item = {
+            "testname": test_name,
+            "last_status": last_status,
+            "pass_rate": pass_rate,
         }
 
         test_list.append(test_list_item)
@@ -144,6 +145,7 @@ def testdetails():
 @app.route("/executiondetails.html")
 def executiondetails():
     return render_template("/regressions/executiondetails.html")
+
 
 @app.route("/passrates.html")
 def passrates():

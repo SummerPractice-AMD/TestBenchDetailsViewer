@@ -7,7 +7,7 @@
 
 ###Functionare
 
--Se instaleaza MongoDB: https://www.mongodb.com/try/download/community si ne conectam
+-Se instaleaza MongoDB: https://www.mongodb.com/try/download/community si ne conectam (config.yml - fisier de configurare a bazei de date)
 
 -Scriptul **DBCollector** primeste argumente de la linia de comanda pentru a specifica directorul care contine fisierele cu datele de intrare sau fisierul. Pentru a rula scriptul, se deschide terminalul si se navigheaza la directorul in care se afla acesta. Apoi se folosesc una din urmatoarele comenzi pentru a colecta si incarca datele in baza de date: 
 

@@ -1,6 +1,5 @@
 import unittest
-from unittest.mock import mock_open, patch
-from generatejson import (get_errors, get_simtimefile, get_realtimefile, get_testname, get_testsstatus, get_testssimtime, get_testsrealtime, get_logline)
+from generatejson import (get_errors, get_simtimefile, get_realtimefile, get_testname, get_testsstatus, get_testssimtime, get_testsrealtime)
 
 
 content = """     -.--ns INFO     cocotb.gpi                                  gpi_embed.c:111  in embed_init_python               Did not detect Python virtual environment. Using system-wide Python interpreter.
@@ -164,4 +163,3 @@ class TestFileParsing(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
