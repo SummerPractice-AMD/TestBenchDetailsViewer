@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import sys
 
+
 class BDQueries:
     def __init__(self, connection_string, db_name, collection_name):
         self.cluster = MongoClient(connection_string)
@@ -113,15 +114,15 @@ class BDQueries:
         return list(documents)[0]["loglines"]
     
     def execution_details_run_id(self, testname):
-        documents = self.collection.find({ "test_name": testname})
+        documents = self.collection.find({"test_name": testname})
         return list(documents)[0]["run_id"]
     
     def execution_details_status_run_id(self, testname):
-        documents = self.collection.find({ "test_name": testname})
+        documents = self.collection.find({"test_name": testname})
         return list(documents)[0]["status"]
 
     def execution_details_logline_run_id(self, testname):
-        documents = self.collection.find({ "test_name": testname})
+        documents = self.collection.find({"test_name": testname})
         return list(documents)[0]["loglines"]
 
     # ---------------------------------------------------------------------------------
@@ -157,7 +158,7 @@ def main():
     print("test_max_runtime:", query_tests.test_max_runtime("run_test_004"))
     print("test_min_runtime:", query_tests.test_min_runtime("run_test_004"))
     print("test_pass_rate:", query_tests.test_pass_rate("run_test_004"))
-    print("execution_details_status:",query_tests.execution_details_status("1", "run_test_004"),)
+    print("execution_details_status:", query_tests.execution_details_status("1", "run_test_004"),)
     print("execution_details:", query_tests.execution_details("1", "run_test_004"))
     print("execution_details_run_id:", query_tests.execution_details_run_id("run_test_004"))
     print("get_run_ids:", query_tests.get_run_ids())

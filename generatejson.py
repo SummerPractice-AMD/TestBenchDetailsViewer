@@ -14,6 +14,7 @@ class TestRuns:
         self.simtimefile = simtimefile
         self.realtimefile = realtimefile
 
+
 class Tests:
     def __init__(self, testname, status, simtime, realtime, logline):
         self.testname = testname
@@ -22,31 +23,35 @@ class Tests:
         self.realtime = realtime
         self.logline = logline
 
+
 class TestRunsEncoder (JSONEncoder):
     def default(self, o):
         return o.__dict__
 
 
-#returneaza numele fiecarui fisier
+# returneaza numele fiecarui fisier
 def get_filename(file, path):
     file_path = Path(path) / file  # Create a Path object for the file
     return Path(file_path).stem
 
-#returneaza numarul erorilor continutului fisierului introdus
+
+# returneaza numarul erorilor continutului fisierului introdus
 def get_errors(file_content):
     parts = file_content.split("*************************************************************************************")
     part = parts[1].split()
     noerrors = part[3]
     return int(noerrors)
 
-#returneaza simtime-ul continutului fisierului introdus
+
+# returneaza simtime-ul continutului fisierului introdus
 def get_simtimefile(file_content):
     parts = file_content.split("*************************************************************************************")
     part = parts[2].split()
     simtimefile = part[4]
     return float(simtimefile)
 
-#returneaza realtime-ul continutului fisierului introdus
+
+# returneaza realtime-ul continutului fisierului introdus
 def get_realtimefile(file_content):
     parts = file_content.split("*************************************************************************************")
     part = parts[2].split()
@@ -54,14 +59,15 @@ def get_realtimefile(file_content):
     return float(realtimefile)
     
 
-#returneaza numele autorului continutului fisierului introdus
+# returneaza numele autorului continutului fisierului introdus
 def get_autorsname(file_content):
     lines = file_content.split('\n')
     words = lines[2].split()
     autorsname = words[2]
     return autorsname
 
-#returneaza numele testului sau None pentru prima linie din fisier
+
+# returneaza numele testului sau None pentru prima linie din fisier
 def get_testname(part_tests):
     autorsname = get_autorsname(part_tests)
     words = part_tests.split()
@@ -69,7 +75,8 @@ def get_testname(part_tests):
     if testname.split(".")[0] != autorsname:
         return testname
 
-#returneaza o lista cu status testelor dintr-un fisier
+
+# returneaza o lista cu status testelor dintr-un fisier
 def get_testsstatus(file_content):
     testsstatuslist = []
     justneededpart = file_content.split("********************************************************************************")[2]
@@ -80,7 +87,8 @@ def get_testsstatus(file_content):
             testsstatuslist.append(words[2])
     return testsstatuslist
 
-#returneaza o lista cu simtime-ul testelor dintr-un fisier
+
+# returneaza o lista cu simtime-ul testelor dintr-un fisier
 def get_testssimtime(file_content):
     testssimtimelist = []
     justneededpart = file_content.split("********************************************************************************")[2]
@@ -91,7 +99,8 @@ def get_testssimtime(file_content):
             testssimtimelist.append(float(words[3]))
     return testssimtimelist
 
-#returneaza o lista cu realtime-ul testelor dintr-un fisier
+
+# returneaza o lista cu realtime-ul testelor dintr-un fisier
 def get_testsrealtime(file_content):
     testsrealtimelist = []
     justneededpart = file_content.split("********************************************************************************")[2]
@@ -102,7 +111,8 @@ def get_testsrealtime(file_content):
             testsrealtimelist.append(float(words[4]))
     return testsrealtimelist
 
-#returneaza o lista cu logline-urile testelor dintr-un fisier
+
+# returneaza o lista cu logline-urile testelor dintr-un fisier
 def get_logline(file_content):
     autorsname = get_autorsname(file_content)
     loglinelist = []
@@ -133,7 +143,7 @@ def get_logline(file_content):
     return loglinelist
 
 
-#primeste un string si returneaza un obiect tip Json
+# primeste un string si returneaza un obiect tip Json
 def parse(string):
     name = str(uuid.uuid1())
     errors = get_errors(string)
@@ -145,7 +155,7 @@ def parse(string):
     justneededpart = string.split("tests")
     testparts = justneededpart[0].split("Running")
     for eachtestpart in testparts:
-        if get_testname(eachtestpart) != None:
+        if get_testname(eachtestpart) is not None:
             testsname.append(get_testname(eachtestpart))
     testsstatus = get_testsstatus(string)
     testssimtime = get_testssimtime(string)
@@ -176,6 +186,7 @@ def parse(string):
     json_output = TestRunsEncoder().encode(output_testrun)
     return json.loads(json_output)
 
+
 # primeste un file si returneaza un obiect tip Json
 def parsefile(filename):
     path = Path(filename)
@@ -185,6 +196,7 @@ def parsefile(filename):
     json_output = parse(file_content)
     json_output['filename'] = name
     return json_output
+
 
 # primeste un dir si returneaza un obiect tip Json
 def parsedir(dirname):
@@ -198,7 +210,7 @@ def parsedir(dirname):
     return json.loads(json_output)
     
 
-#returneaza o lista de obiecte json
+# returneaza o lista de obiecte json
 def get_listjson(path):
     filename_list = os.listdir(path)
     testsrun = []
@@ -263,4 +275,3 @@ def get_listjson(path):
         listjson.append(output_testrun)
     json_output = TestRunsEncoder().encode(listjson)
     return json.loads(json_output)
-
