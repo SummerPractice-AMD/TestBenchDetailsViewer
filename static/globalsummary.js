@@ -20,11 +20,11 @@ fetch("/api/global_summary")
            </tr>
            <tr>
              <th scope="row">Avg Run time</th>
-             <td>${globalSummary.avg_runtime} ns</td>
+             <td>${globalSummary.avg_runtime.toFixed(2)} s</td>
            </tr>
            <tr>
              <th scope="row">Avg Sim Time</th>
-             <td>${globalSummary.avg_sim_time.toFixed(2)} s</td>
+             <td>${(globalSummary.avg_sim_time / 1000000000).toFixed(2)} s</td>
            </tr>
            <tr>
              <th scope="row">Max Run Time</th>
