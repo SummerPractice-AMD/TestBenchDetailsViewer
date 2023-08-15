@@ -17,12 +17,12 @@ fetch("/api/global_summary")
            <tr>
             <th scope="row">No. Run</th>
              <td>${globalSummary.no_runs}</td>
-           <td>/</td>  
+           <td></td>  
            </tr>
            <tr>
            <th scope="col">No. Errors</th>
              <td>${globalSummary.no_errors}</td>
-             <td>s</td>
+             <td></td>
            </tr>
            <tr>
              <th scope="row">Avg Runtime</th>
