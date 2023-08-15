@@ -6,7 +6,7 @@ table {
 
 td,
 th {
-    border: 1px solid black;
+    border: 1px solid rgb(255, 255, 255);
     padding: 8px;
 }
 
@@ -20,6 +20,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-    background-color: grey;
+    background-color: rgb(235, 217, 217);
     color: white;
 }
+

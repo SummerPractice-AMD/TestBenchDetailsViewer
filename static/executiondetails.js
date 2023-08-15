@@ -7,9 +7,11 @@ fetch('/api/run_ids')
    .then(data => {
        const runIdSelect = document.getElementById('comboBoxRunId');
 
+        // Sort the run_ids numerically by run_name
+        const sortedRunIds = data.run_ids.slice().sort((a, b) => a.run_name - b.run_name);
 
-       
-       data.run_ids.forEach(run => {
+      
+       sortedRunIds.forEach(run => {
            const option = document.createElement('option');
            option.value = run.run_name;
            option.textContent = run.run_name;
@@ -44,7 +46,6 @@ fetch('/api/run_ids')
       document.addEventListener('DOMContentLoaded', () => {
         const runIdSelect = document.getElementById('comboBoxRunId');
         const testNameSelect = document.getElementById('comboBoxTestNames');
-        const testNameSelectAlone = document.getElementById('comboBoxTestNames');
         const executionDetailsDiv = document.getElementById('log_lineItem');
         const inputPassOrFail = document.getElementById('statusInput');
       
@@ -75,11 +76,21 @@ testNameSelect.addEventListener('change', () => {
            } else {
                const executionDetails = data.execution_details;
                inputPassOrFail.value = executionDetails.status;
-               changeColor();
-               executionDetailsDiv.innerHTML = `
-                   <p> ${executionDetails.logline}</p>
-    
-               `;
+               // Change the color based on the value
+               if (executionDetails.status === 'PASS') {
+                inputPassOrFail.style.backgroundColor = 'green';
+                inputPassOrFail.style.color = 'white';
+                } else if (executionDetails.status === 'FAIL') {
+                inputPassOrFail.style.backgroundColor = 'red';
+                inputPassOrFail.style.color = 'white';
+                } else {
+                // Reset the color if it's neither Pass nor Fail
+                inputPassOrFail.style.color = ''; // You can set a default color here
+                }
+                const logLines = executionDetails.logline.split('\n');
+                executionDetailsDiv.innerHTML = logLines
+                .map(line => `<p>${line}</p>`)
+                .join('');
            }
        })
        .catch(error => console.error('Error fetching execution details:', error));
@@ -88,31 +99,8 @@ testNameSelect.addEventListener('change', () => {
     
     });
     
-    testNameSelectAlone.addEventListener('change', () => {
-    const selectedTestNameAlone = testNameSelectAlone.value;
-    
-     fetch(`/api/execution_details/${selectedTestNameAlone}`)
-       .then(response => response.json())
-       .then(data => {
-           if (data.error) {
-               executionDetailsDiv.textContent = 'Execution details not found';
-           } else {
-               const executionDetails = data.execution_details;
-               inputPassOrFail.value = executionDetails.status;
-               runIdSelect.value = executionDetails.run_id;
-               executionDetailsDiv.innerHTML = `
-                   <p> ${executionDetails.logline}</p>
-               changeColor();
-               `;
-           }
-       })
-       .catch(error => console.error('Error fetching execution details:', error));
-    
-    
-    
-    });
-    
       }); 
-
+   
+      
 
 
