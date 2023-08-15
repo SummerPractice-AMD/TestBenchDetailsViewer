@@ -50,7 +50,7 @@
               </tr>
               <tr>
               <th scope="row">Average Sim Time</th>
-              <td>${testDetails.avg_sim_time.toFixed(2)} s</td>
+              <td>${(testDetails.avg_sim_time / 1000000000).toFixed(2)} s</td>
               </tr>
               <tr>
               <th scope="row">Summation run time</th>
