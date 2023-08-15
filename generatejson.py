@@ -70,7 +70,7 @@ def get_autorsname(file_content):
 def get_testname(part_tests):
     autorsname = get_autorsname(part_tests)
     words = part_tests.split()
-    testname = words[2]  
+    testname = words[2]
     if testname.split(".")[0] != autorsname:
         return testname
 
@@ -165,7 +165,8 @@ def parse(string):
     testsrealtime = get_testsrealtime(string)
     testslogline = get_logline(string)
 
-    for testname, teststatus, testsimtime, testrealtime, testlogline in zip(testsname, testsstatus, testssimtime, testsrealtime, testslogline):
+    for testname, teststatus, testsimtime, testrealtime, testlogline in zip(
+        testsname, testsstatus, testssimtime, testsrealtime, testslogline):
         test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
         tests.append(test)
 
@@ -211,7 +212,7 @@ def parsedir(dirname):
             listjson.append(parsefile(file_to_open))
     json_output = TestRunsEncoder().encode(listjson)
     return json.loads(json_output)
-    
+
 
 # returneaza o lista de obiecte json
 def get_listjson(path):
@@ -223,7 +224,7 @@ def get_listjson(path):
     simtimefile = []
     realtimefile = []
     listjson = []
- 
+
     for file in filename_list:
         if file.endswith(".txt"):
             stem = get_filename(file, path)
@@ -249,7 +250,8 @@ def get_listjson(path):
             testsrealtime = get_testsrealtime(file_content)
             testslogline = get_logline(file_content)
 
-            for testname, teststatus, testsimtime, testrealtime, testlogline in zip(testsname, testsstatus, testssimtime, testsrealtime, testslogline):
+            for testname, teststatus, testsimtime, testrealtime, testlogline in zip(
+                testsname, testsstatus, testssimtime, testsrealtime, testslogline):
                 test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
                 tests.append(test)
             filetests.append(tests)
