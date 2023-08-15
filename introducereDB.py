@@ -55,10 +55,3 @@ class DatabaseLoader:
                            "sim_time":test["simtime"],
                            "loglines":test["logline"]}
                 self.tests_collection.insert_one(test_data)
-
-""" if __name__=="__main__":
-    db_url="mongodb://localhost:27017/"
-    db_name="test_bench_database"
-    loader=DatabaseLoader(db_url,db_name)
-    json_name="test_data.json"
-    loader.load_from_json(json_name) """

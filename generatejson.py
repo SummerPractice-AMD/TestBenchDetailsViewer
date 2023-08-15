@@ -262,25 +262,5 @@ def get_listjson(path):
             output_testrun["tests"].append(output_test)
         listjson.append(output_testrun)
     json_output = TestRunsEncoder().encode(listjson)
-<<<<<<< Updated upstream
     return json.loads(json_output)
 
-
-""" path ="C://Users//laris//OneDrive//Desktop//AMD//Proiect//Teste"
-# stem = get_filename(file, path)
-file_to_open = Path("C://Users//laris//OneDrive//Desktop//AMD//Proiect//Teste//12.txt")
-# file_to_open = Path(path) / file
-# filename = "12"
-# with open(file_to_open, "r") as file:
-#     file_content = file.read()
-
-json_output = parsedir(path)
-output_json_file = "outtt.json"
-
-# Write the JSON content to the output file
-with open(output_json_file, "w") as outfile:
-    json.dump(json_output, outfile, indent=4) """
-
-=======
-    return json.loads(json_output)
->>>>>>> Stashed changes

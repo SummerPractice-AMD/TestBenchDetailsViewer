@@ -24,7 +24,6 @@ def parse_command_line():
 
 def main():
     args=parse_command_line()
-    #json_output = get_listjson(args.dir)
 
     config=load_config("config.yml")
     loader=connect_to_database(config)
@@ -38,10 +37,5 @@ def main():
     else:
         print("Specify either --dir or --file option.")
         
-    #json_output=get_listjson("C:\\Users\\adina\\Downloads\\regression-runs")
-    #json_output=get_listjson("C://Users//adina//Downloads//PracticaAMD-Proiect")
-    #output_json_file = "json_data.json"
-    #with open(output_json_file, "w") as outfile:
-        #json.dump(json_output, outfile, indent=4) 
 if __name__ == "__main__":
     main()
