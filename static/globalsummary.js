@@ -1,8 +1,4 @@
-
-
-
-
-  document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
     const summaryContainer = document.getElementById('tableGlobalSummary');
  
 fetch("/api/global_summary")
@@ -16,28 +12,23 @@ fetch("/api/global_summary")
            </tr>
            <tr>
             <th scope="row">No. Run</th>
-             <td>${globalSummary.no_runs}</td>
-           <td>/</td>  
+             <td>${globalSummary.no_runs}</td>  
            </tr>
            <tr>
            <th scope="col">No. Errors</th>
              <td>${globalSummary.no_errors}</td>
-             <td>s</td>
            </tr>
            <tr>
-             <th scope="row">Avg Runtime</th>
-             <td>${globalSummary.avg_runtime}</td>
-             <td>s</td>
+             <th scope="row">Avg Run time</th>
+             <td>${globalSummary.avg_runtime} ns</td>
            </tr>
            <tr>
              <th scope="row">Avg Sim Time</th>
-             <td>${globalSummary.avg_sim_time.toFixed(2)}</td>
-             <td>s</td>
+             <td>${globalSummary.avg_sim_time.toFixed(2)} s</td>
            </tr>
            <tr>
              <th scope="row">Max Run Time</th>
-             <td>${globalSummary.max_run_time}</td>
-             <td>s</td>
+             <td>${globalSummary.max_run_time} s</td>
            </tr>`;
 
     summaryContainer.innerHTML = indexHtml;
@@ -46,3 +37,5 @@ fetch("/api/global_summary")
         console.error('An error occurred:', error);
       });
   });
+
+ 
