@@ -166,9 +166,9 @@ def parse(string):
     testslogline = get_logline(string)
 
     for testname, teststatus, testsimtime, testrealtime, testlogline in zip(
-        testsname, testsstatus, testssimtime, testsrealtime, testslogline):
-            test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
-            tests.append(test)
+            testsname, testsstatus, testssimtime, testsrealtime, testslogline):
+        test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
+        tests.append(test)
 
     testrun = TestRuns(name, tests, errors, simtime, realtime)
     output_testrun = {
@@ -251,9 +251,9 @@ def get_listjson(path):
             testslogline = get_logline(file_content)
 
             for testname, teststatus, testsimtime, testrealtime, testlogline in zip(
-                testsname, testsstatus, testssimtime, testsrealtime, testslogline):
-                    test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
-                    tests.append(test)
+                    testsname, testsstatus, testssimtime, testsrealtime, testslogline):
+                test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
+                tests.append(test)
             filetests.append(tests)
 
     for name, testlist, errors, simtime, realtime in zip(filetestname, filetests, errorsfile, simtimefile, realtimefile):
