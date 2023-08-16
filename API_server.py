@@ -1,5 +1,7 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template,request
 from bdqueries import BDQueries
+from pymongo import MongoClient
+from introducereDB import  DatabaseLoader
 from DBCollector import load_config, connect_to_database
 from generatejson import parse
 import yaml
@@ -16,8 +18,7 @@ def get_run_ids():
 @app.route("/api/test_names", methods=["GET"])
 def get_test_names():
     test_names = bd_queries_tests.get_test_names()
-    return jsonify({"test_names": [{"name": test_name}
-                                   for test_name in test_names]})
+    return jsonify({"test_names": [{"name": test_name} for test_name in test_names]})
 
 
 @app.route("/api/test_details/<test_name>", methods=["GET"])
@@ -53,10 +54,8 @@ def get_test_details(test_name):
 
 @app.route("/api/execution_details/<run_id>/<test_name>", methods=["GET"])
 def get_execution_details(run_id, test_name):
-    execution_details = bd_queries_tests.execution_details(
-        run_id, test_name)
-    execution_status = bd_queries_tests.execution_details_status(
-        run_id, test_name)
+    execution_details = bd_queries_tests.execution_details(run_id, test_name)
+    execution_status = bd_queries_tests.execution_details_status(run_id, test_name)
     if not execution_details or not execution_status:
         return jsonify({"error": "Execution details not found"}), 404
 
@@ -73,10 +72,8 @@ def get_execution_details(run_id, test_name):
 
 @app.route("/api/execution_details/<test_name>", methods=["GET"])
 def get_execution_details_run_id(test_name):
-    execution_details = bd_queries_tests.execution_details_logline_run_id(
-        test_name)
-    execution_status = bd_queries_tests.execution_details_status_run_id(
-        test_name)
+    execution_details = bd_queries_tests.execution_details_logline_run_id(test_name)
+    execution_status = bd_queries_tests.execution_details_status_run_id(test_name)
     execution_run_id = bd_queries_tests.execution_details_run_id(test_name)
     if not execution_details or not execution_status or not execution_run_id:
         return jsonify({"error": "Execution details not found"}), 404
@@ -133,7 +130,6 @@ def get_pass_rates():
 
     return jsonify({"pass_rates": test_list})
 
-
 @app.route('/api/ingest', methods=['POST'])
 def ingest():
     config = load_config("config.yml")
@@ -145,13 +141,11 @@ def ingest():
             parsed_json = parse(file_content)
             database_loader = loader
             database_loader.load_from_json(parsed_json)
-            return jsonify({'message':
-                            'File ingested and parsed successfully'}), 200
+            return jsonify({'message': 'File ingested and parsed successfully'}), 200
         else:
             return jsonify({'error': 'Invalid file'}), 400
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-
 
 @app.route("/")
 def base():
@@ -177,10 +171,9 @@ def executiondetails():
 def passrates():
     return render_template("/regressions/passrates.html")
 
-
 @app.route('/draganddrop.html')
 def draganddrop():
-    return render_template("/regressions/draganddrop.html")
+        return render_template("/regressions/draganddrop.html")
 
 
 if __name__ == "__main__":
@@ -196,8 +189,7 @@ if __name__ == "__main__":
     tests_table_name = "tests"
     testruns_table_name = "testruns"
 
-    bd_queries_tests = BDQueries(connection_string,
-                                 database_name, tests_table_name)
+    bd_queries_tests = BDQueries(connection_string, database_name, tests_table_name)
     bd_queries_testruns = BDQueries(
         connection_string, database_name, testruns_table_name
     )
