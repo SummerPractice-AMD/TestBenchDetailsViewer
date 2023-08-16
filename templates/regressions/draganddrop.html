@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    {% extends "base.html" %}
+
+{% block title %} Test Details {% endblock %}
+
+{%block div%}
+<head>
+    <title>File Upload and Parse</title>
+    <link rel="stylesheet" href="/static/draganddrop.css">
+</head>
+<body>
+    <div id="drop-area">
+        <p>Drag and drop a file here</p>
+    </div>
+    <button id="upload-btn">Upload File</button>
+
+    <script src="/static/draganddrop.js"></script>
+</body>
+{% endblock %} 
+</html>
