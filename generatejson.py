@@ -212,3 +212,4 @@ def parsedir(dirname):
             listjson.append(parsefile(file_to_open))
     json_output = TestRunsEncoder().encode(listjson)
     return json.loads(json_output)
+    
