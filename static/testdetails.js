@@ -41,11 +41,11 @@
               <td>${testDetails.avg_run_time.toFixed(2)} s</td>
               </tr>
               <tr>
-              <th scope="row">Max Run Time</th>
+              <th scope="row">Maximum Run Time</th>
               <td>${testDetails.max_run_time.toFixed(2)} s</td>
               </tr>
               <tr>
-              <th scope="row">Min Run Time</th>
+              <th scope="row">Minimum Run Time</th>
               <td>${testDetails.min_run_time.toFixed(2)} s</td>
               </tr>
               <tr>
@@ -53,7 +53,7 @@
               <td>${(testDetails.avg_sim_time / 1000000000).toFixed(2)} s</td>
               </tr>
               <tr>
-              <th scope="row">Summation run time</th>
+              <th scope="row">Summation Run time</th>
               <td>${testDetails.sum_run_time.toFixed(2)} s</td>
               </tr>
               `;

@@ -42,7 +42,8 @@ padding-left: 10rem; }
   padding: 10px;
 }
 .grid-item {
-  padding: 5px;
+  width: 600px;
+  padding: 10px;
   font-size: 30px;
   text-align: center;
 }

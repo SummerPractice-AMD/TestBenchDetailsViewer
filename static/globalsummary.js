@@ -7,27 +7,24 @@ fetch("/api/global_summary")
 
            let indexHtml = '';
            indexHtml =`
-            <tr>
-             <th scope="col"  colspan="3">Global Summary</th>
-           </tr>
            <tr>
-            <th scope="row">No. Run</th>
+            <th scope="row">Number of Runs</th>
              <td>${globalSummary.no_runs}</td>  
            </tr>
            <tr>
-           <th scope="col">No. Errors</th>
+           <th scope="col">Number of Errors</th>
              <td>${globalSummary.no_errors}</td>
            </tr>
            <tr>
-             <th scope="row">Avg Run time</th>
+             <th scope="row">Average Run time</th>
              <td>${globalSummary.avg_runtime.toFixed(2)} s</td>
            </tr>
            <tr>
-             <th scope="row">Avg Sim Time</th>
+             <th scope="row">Average Sim Time</th>
              <td>${(globalSummary.avg_sim_time / 1000000000).toFixed(2)} s</td>
            </tr>
            <tr>
-             <th scope="row">Max Run Time</th>
+             <th scope="row">Maximum Run Time</th>
              <td>${globalSummary.max_run_time} s</td>
            </tr>`;
 
