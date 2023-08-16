@@ -1,5 +1,6 @@
 import unittest
-from generatejson import (get_errors, get_simtimefile, get_realtimefile, get_testname, get_testsstatus, get_testssimtime, get_testsrealtime)
+from generatejson import (get_errors, get_simtimefile, get_realtimefile,
+                          get_testname, get_testsstatus, get_testssimtime, get_testsrealtime)
 
 
 content = """     -.--ns INFO     cocotb.gpi                                  gpi_embed.c:111  in embed_init_python               Did not detect Python virtual environment. Using system-wide Python interpreter.
@@ -95,7 +96,7 @@ class TestFileParsing(unittest.TestCase):
         justneededpart = content.split("tests")
         testparts = justneededpart[0].split("Running")
         for eachtestpart in testparts:
-            if get_testname(eachtestpart) is not None :
+            if get_testname(eachtestpart) is not None:
                 result.append(get_testname(eachtestpart))
         self.assertEqual(result, ["run_test_021", "run_test_022"])
 
@@ -110,6 +111,7 @@ class TestFileParsing(unittest.TestCase):
     def test_get_testsrealtime(self):
         result = get_testsrealtime(content)
         self.assertEqual(result, [0.12, 0.02])
+
 
 if __name__ == '__main__':
     unittest.main()
