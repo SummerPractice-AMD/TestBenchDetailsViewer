@@ -99,18 +99,21 @@ class BDQueries:
 
     def test_last_status(self, testname):
         document = self.collection.aggregate(
-            [{"$sort": {"_id": -1}}, {"$match": {"test_name": testname}}, {"$limit": 1}]
+            [{"$sort": {"_id": -1}}, {"$match":
+                                      {"test_name": testname}}, {"$limit": 1}]
         )
         return list(document)[0]["status"]
 
     # ----------------------------------------------------------------------------------
 
     def execution_details_status(self, filename, testname):
-        documents = self.collection.find({"run_id": filename, "test_name": testname})
+        documents = self.collection.find({"run_id": filename,
+                                          "test_name": testname})
         return list(documents)[0]["status"]
 
     def execution_details(self, filename, testname):
-        documents = self.collection.find({"run_id": filename, "test_name": testname})
+        documents = self.collection.find({"run_id": filename,
+                                          "test_name": testname})
         return list(documents)[0]["loglines"]
 
     def execution_details_run_id(self, testname):
@@ -145,22 +148,27 @@ class BDQueries:
 
 
 def main():
-    query_testruns = BDQueries("mongodb://localhost:27017", "RegressionDetails", "testruns")
+    query_testruns = BDQueries("mongodb://localhost:27017",
+                               "RegressionDetails", "testruns")
     print("file_no_runs:", query_testruns.file_no_runs())
     print("file_no_errors:", query_testruns.file_no_errors())
     print("file_avg_runtime:", query_testruns.file_avg_runtime())
     print("file_avg_simtime:", query_testruns.file_avg_simtime())
     print("file_max_runtime:", query_testruns.file_max_runtime())
 
-    query_tests = BDQueries("mongodb://localhost:27017", "RegressionDetails", "tests")
+    query_tests = BDQueries("mongodb://localhost:27017",
+                            "RegressionDetails", "tests")
     print("test_avg_runtime:", query_tests.test_avg_runtime("run_test_004"))
     print("test_avg_simtime:", query_tests.test_avg_simtime("run_test_004"))
     print("test_max_runtime:", query_tests.test_max_runtime("run_test_004"))
     print("test_min_runtime:", query_tests.test_min_runtime("run_test_004"))
     print("test_pass_rate:", query_tests.test_pass_rate("run_test_004"))
-    print("execution_details_status:", query_tests.execution_details_status("1", "run_test_004"),)
-    print("execution_details:", query_tests.execution_details("1", "run_test_004"))
-    print("execution_details_run_id:", query_tests.execution_details_run_id("run_test_004"))
+    print("execution_details_status:",
+          query_tests.execution_details_status("1", "run_test_004"),)
+    print("execution_details:",
+          query_tests.execution_details("1", "run_test_004"))
+    print("execution_details_run_id:",
+          query_tests.execution_details_run_id("run_test_004"))
     print("get_run_ids:", query_tests.get_run_ids())
     print("get_test_names:", query_tests.get_test_names())
     print("test_sum_run_time:", query_tests.test_sum_run_time("run_test_004"))
