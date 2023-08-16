@@ -14,7 +14,8 @@ def get_run_ids():
 @app.route("/api/test_names", methods=["GET"])
 def get_test_names():
     test_names = bd_queries_tests.get_test_names()
-    return jsonify({"test_names": [{"name": test_name} for test_name in test_names]})
+    return jsonify({"test_names":
+                    [{"name": test_name} for test_name in test_names]})
 
 
 @app.route("/api/test_details/<test_name>", methods=["GET"])
@@ -51,7 +52,8 @@ def get_test_details(test_name):
 @app.route("/api/execution_details/<run_id>/<test_name>", methods=["GET"])
 def get_execution_details(run_id, test_name):
     execution_details = bd_queries_tests.execution_details(run_id, test_name)
-    execution_status = bd_queries_tests.execution_details_status(run_id, test_name)
+    execution_status = bd_queries_tests.execution_details_status(run_id,
+                                                                 test_name)
     if not execution_details or not execution_status:
         return jsonify({"error": "Execution details not found"}), 404
 
@@ -68,8 +70,10 @@ def get_execution_details(run_id, test_name):
 
 @app.route("/api/execution_details/<test_name>", methods=["GET"])
 def get_execution_details_run_id(test_name):
-    execution_details = bd_queries_tests.execution_details_logline_run_id(test_name)
-    execution_status = bd_queries_tests.execution_details_status_run_id(test_name)
+    execution_details = bd_queries_tests.execution_details_logline_run_id(
+        test_name)
+    execution_status = bd_queries_tests.execution_details_status_run_id(
+        test_name)
     execution_run_id = bd_queries_tests.execution_details_run_id(test_name)
     if not execution_details or not execution_status or not execution_run_id:
         return jsonify({"error": "Execution details not found"}), 404
@@ -165,7 +169,8 @@ if __name__ == "__main__":
     tests_table_name = "tests"
     testruns_table_name = "testruns"
 
-    bd_queries_tests = BDQueries(connection_string, database_name, tests_table_name)
+    bd_queries_tests = BDQueries(connection_string,
+                                 database_name, tests_table_name)
     bd_queries_testruns = BDQueries(
         connection_string, database_name, testruns_table_name
     )
