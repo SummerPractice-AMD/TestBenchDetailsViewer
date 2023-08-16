@@ -36,9 +36,7 @@ def get_filename(file, path):
 
 # returneaza numarul erorilor continutului fisierului introdus
 def get_errors(file_content):
-    parts = file_content.split("******\
-                               ************************************************\
-                               *******************************")
+    parts = file_content.split("*************************************************************************************")
     part = parts[1].split()
     noerrors = part[3]
     return int(noerrors)
@@ -46,9 +44,7 @@ def get_errors(file_content):
 
 # returneaza simtime-ul continutului fisierului introdus
 def get_simtimefile(file_content):
-    parts = file_content.split("**********************************\
-                               *************************************\
-                               **************")
+    parts = file_content.split("*************************************************************************************")
     part = parts[2].split()
     simtimefile = part[4]
     return float(simtimefile)
@@ -56,9 +52,7 @@ def get_simtimefile(file_content):
 
 # returneaza realtime-ul continutului fisierului introdus
 def get_realtimefile(file_content):
-    parts = file_content.split("*********************\
-                               *****************************************\
-                               ***********************")
+    parts = file_content.split("*************************************************************************************")
     part = parts[2].split()
     realtimefile = part[11]
     return float(realtimefile)
@@ -84,9 +78,7 @@ def get_testname(part_tests):
 # returneaza o lista cu status testelor dintr-un fisier
 def get_testsstatus(file_content):
     testsstatuslist = []
-    justneededpart = file_content.split("*******************\
-                                        **********************************\
-                                        ***************************")[2]
+    justneededpart = file_content.split("********************************************************************************")[2]
     lines = justneededpart.split('\n')
     for line in lines:
         words = line.split()
@@ -98,9 +90,7 @@ def get_testsstatus(file_content):
 # returneaza o lista cu simtime-ul testelor dintr-un fisier
 def get_testssimtime(file_content):
     testssimtimelist = []
-    justneededpart = file_content.split("*****************\
-                                        *********************************\
-                                        ******************************")[2]
+    justneededpart = file_content.split("********************************************************************************")[2]
     lines = justneededpart.split('\n')
     for line in lines:
         words = line.split()
@@ -112,9 +102,7 @@ def get_testssimtime(file_content):
 # returneaza o lista cu realtime-ul testelor dintr-un fisier
 def get_testsrealtime(file_content):
     testsrealtimelist = []
-    justneededpart = file_content.split("**********\
-                                        ************************************\
-                                        **********************************")[2]
+    justneededpart = file_content.split("********************************************************************************")[2]
     lines = justneededpart.split('\n')
     for line in lines:
         words = line.split()
@@ -144,18 +132,14 @@ def get_logline(file_content):
                     logline = logline + word + " "
                 logline = logline + '\n'
         if len(words) == 11 and startwriting == 1 and words[10] == "packets":
-            logline = logline + words[3] + " "
-            + words[4] + " " + words[5] + " " + \
-                words[6] + " " + words[7] + " "
-            + words[8] + " " + words[9] + " " + \
+            logline = logline + words[3] + " " + words[4] + " " + words[5] + " " + \
+                words[6] + " " + words[7] + " " + words[8] + " " + words[9] + " " + \
                 words[10] + "\n"
             startwriting = 0
             loglinelist.append(logline)
         if len(words) == 12 and startwriting == 1 and words[7] == "Failed:":
-            logline = logline + words[3] + " "
-            + words[4] + " " + words[5] + " " + \
-                words[6] + " " + words[7] + " "
-            + words[8] + " " + words[9] + " " + \
+            logline = logline + words[3] + " " + words[4] + " " + words[5] + " " + \
+                words[6] + " " + words[7] + " " + words[8] + " " + words[9] + " " + \
                 words[10] + " " + words[11] + "\n"
             startwriting = 0
             loglinelist.append(logline)
@@ -183,8 +167,7 @@ def parse(string):
 
     for testname, teststatus, testsimtime, testrealtime, testlogline in zip(
             testsname, testsstatus, testssimtime, testsrealtime, testslogline):
-        test = Tests(testname, teststatus,
-                     testsimtime, testrealtime, testlogline)
+        test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
         tests.append(test)
 
     testrun = TestRuns(name, tests, errors, simtime, realtime)
