@@ -202,7 +202,7 @@ def parsefile(filename):
     return json_output
 
 
-# primeste un dir si returneaza un obiect tip Json
+# primeste un dir si returneaza o lista de obiecte tip Json
 def parsedir(dirname):
     listjson = []
     filename_list = os.listdir(dirname)
@@ -210,73 +210,5 @@ def parsedir(dirname):
         if file.endswith(".txt"):
             file_to_open = Path(dirname) / file
             listjson.append(parsefile(file_to_open))
-    json_output = TestRunsEncoder().encode(listjson)
-    return json.loads(json_output)
-
-
-# returneaza o lista de obiecte json
-def get_listjson(path):
-    filename_list = os.listdir(path)
-    testsrun = []
-    filetestname = []
-    filetests = []
-    errorsfile = []
-    simtimefile = []
-    realtimefile = []
-    listjson = []
-
-    for file in filename_list:
-        if file.endswith(".txt"):
-            stem = get_filename(file, path)
-            file_to_open = Path(path) / file
-            with open(file_to_open, "r") as file:
-                file_content = file.read()
-            filetestname.append(stem)
-            errorsfile.append(get_errors(file_content))
-            simtimefile.append(get_simtimefile(file_content))
-            realtimefile.append(get_realtimefile(file_content))
-            # file_to_write = stem + ".json"
-            tests = []
-            testsname = []
-            testslogline = []
-
-            justneededpart = file_content.split("tests")
-            testparts = justneededpart[0].split("Running")
-            for eachtestpart in testparts:
-                if get_testname(eachtestpart) is not None:
-                    testsname.append(get_testname(eachtestpart))
-            testsstatus = get_testsstatus(file_content)
-            testssimtime = get_testssimtime(file_content)
-            testsrealtime = get_testsrealtime(file_content)
-            testslogline = get_logline(file_content)
-
-            for testname, teststatus, testsimtime, testrealtime, testlogline in zip(
-                    testsname, testsstatus, testssimtime, testsrealtime, testslogline):
-                test = Tests(testname, teststatus, testsimtime, testrealtime, testlogline)
-                tests.append(test)
-            filetests.append(tests)
-
-    for name, testlist, errors, simtime, realtime in zip(filetestname, filetests, errorsfile, simtimefile, realtimefile):
-        testrun = TestRuns(name, testlist, errors, simtime, realtime)
-        testsrun.append(testrun)
-
-    for testrun in testsrun:
-        output_testrun = {
-            "filename": testrun.filename,
-            "tests": [],
-            "errors": testrun.errors,
-            "simtimefile": testrun.simtimefile,
-            "realtimefile": testrun.realtimefile
-        }
-        for test in testrun.tests:
-            output_test = {
-                "testname": test.testname,
-                "status": test.status,
-                "simtime": test.simtime,
-                "realtime": test.realtime,
-                "logline": test.logline
-            }
-            output_testrun["tests"].append(output_test)
-        listjson.append(output_testrun)
     json_output = TestRunsEncoder().encode(listjson)
     return json.loads(json_output)
