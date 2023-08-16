@@ -83,20 +83,16 @@ content = """     -.--ns INFO     cocotb.gpi                                  gp
                                                                                                                                 
 29225032000000000.00ns INFO     cocotb.regression                         regression.py:219  in tear_down                       Shutting down..."""
 
-
 class TestFileParsing(unittest.TestCase):
     def test_get_errors(self):
         result = get_errors(content)
         self.assertEqual(result, 1)
-
     def test_get_simtimefile(self):
         result = get_simtimefile(content)
         self.assertEqual(result, 29225032000000000.00)
-
     def test_get_realtimefile(self):
         result = get_realtimefile(content)
         self.assertEqual(result, 3.97)
-
     def test_get_testname(self):
         result = []
         justneededpart = content.split("tests")
@@ -105,19 +101,15 @@ class TestFileParsing(unittest.TestCase):
             if get_testname(eachtestpart) is not None:
                 result.append(get_testname(eachtestpart))
         self.assertEqual(result, ["run_test_021", "run_test_022"])
-
     def test_get_testsstatus(self):
         result = get_testsstatus(content)
         self.assertEqual(result, ["PASS", "FAIL"])
-
     def test_get_testssimtime(self):
         result = get_testssimtime(content)
         self.assertEqual(result, [775001000000000.00, 90001000000000.00])
-
     def test_get_testsrealtime(self):
         result = get_testsrealtime(content)
         self.assertEqual(result, [0.12, 0.02])
-
 
 if __name__ == "__main__":
     unittest.main()
