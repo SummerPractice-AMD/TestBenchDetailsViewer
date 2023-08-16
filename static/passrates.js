@@ -15,7 +15,7 @@ function loadPassRatesTable(tests) {
         testname = test['testname']
         last_status = test['last_status']
         pass_rate = test['pass_rate']
-        dataHtml += `<tr><td>${testname}</td><td>${last_status}</td><td>${pass_rate}</td></tr>`;
+        dataHtml += `<tr><td>${testname}</td><td>${last_status}</td><td>${pass_rate.toFixed(2)}</td></tr>`;
     }
 
     tableBody.innerHTML = dataHtml

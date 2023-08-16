@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route("/api/run_ids", methods=["GET"])
 def get_run_ids():
-    run_ids = bd_queries_tests.get_run_ids()
+    run_ids = bd_queries_testruns.get_run_ids()
     return jsonify({"run_ids": [{"run_name": run_id} for run_id in run_ids]})
 
 
