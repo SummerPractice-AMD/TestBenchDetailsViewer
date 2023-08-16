@@ -1,7 +1,13 @@
 import unittest
-from generatejson import (get_errors, get_simtimefile, get_realtimefile,
-                          get_testname, get_testsstatus, get_testssimtime, get_testsrealtime)
-
+from generatejson import (
+    get_errors,
+    get_simtimefile,
+    get_realtimefile,
+    get_testname,
+    get_testsstatus,
+    get_testssimtime,
+    get_testsrealtime,
+)
 
 content = """     -.--ns INFO     cocotb.gpi                                  gpi_embed.c:111  in embed_init_python               Did not detect Python virtual environment. Using system-wide Python interpreter.
      -.--ns INFO     cocotb.gpi                                GpiCommon.cpp:91   in gpi_print_registered_impl       VPI registered
@@ -113,5 +119,5 @@ class TestFileParsing(unittest.TestCase):
         self.assertEqual(result, [0.12, 0.02])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
