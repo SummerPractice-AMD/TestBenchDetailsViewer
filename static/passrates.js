@@ -7,6 +7,8 @@ fetch('/api/pass_rates')
     }
     );
 
+let sortDirection = false;
+
 function loadPassRatesTable(tests) {
     const tableBody = document.getElementById('passRatesTable');
     let dataHtml = '';
@@ -17,11 +19,9 @@ function loadPassRatesTable(tests) {
         pass_rate = test['pass_rate']
         dataHtml += `<tr><td>${testname}</td><td>${last_status}</td><td>${pass_rate.toFixed(2)}</td></tr>`;
     }
-
-    tableBody.innerHTML = dataHtml
+    
+    tableBody.innerHTML = dataHtml;
 }
-
-let sortDirection = false;
 
 function sortColumn(columnName) {
 
@@ -33,6 +33,11 @@ function sortColumn(columnName) {
             sortNumberColumn(sortDirection, columnName);
             break;
     }
+
+    if (sortDirection == true)
+        document.getElementById('PassRateColumn').innerHTML = "Pass rate ⬆";
+    else
+        document.getElementById('PassRateColumn').innerHTML = "Pass rate ⬇";
 
     loadPassRatesTable(pass_ratesList)
 }

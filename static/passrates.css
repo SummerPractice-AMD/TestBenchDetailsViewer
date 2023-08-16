@@ -23,4 +23,9 @@ tr:hover {
     background-color: rgb(235, 217, 217);
     color: white;
 }
+#PassRateColumn:hover
+{
+    cursor:pointer;
+}
+
 

@@ -17,11 +17,6 @@ h1 {
 
 }
 
-/* .table {
-     border-radius: .375rem;
-     margin-left: 29rem;
- } */
-
 .scrollspy-example {
   height: 400px;
   overflow: hidden;
@@ -42,6 +37,7 @@ tbody th {
 }
 
 tbody td {
+  text-align: left;
   font-weight: 500;
   color: rgba(255, 255, 255, .65);
 }
