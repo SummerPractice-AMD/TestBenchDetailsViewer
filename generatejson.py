@@ -36,7 +36,8 @@ def get_filename(file, path):
 
 # returneaza numarul erorilor continutului fisierului introdus
 def get_errors(file_content):
-    parts = file_content.split("*************************************************************************************")
+    string_for_split = "*" * 85
+    parts = file_content.split(string_for_split)
     part = parts[1].split()
     noerrors = part[3]
     return int(noerrors)
@@ -44,7 +45,8 @@ def get_errors(file_content):
 
 # returneaza simtime-ul continutului fisierului introdus
 def get_simtimefile(file_content):
-    parts = file_content.split("*************************************************************************************")
+    string_for_split = "*" * 85
+    parts = file_content.split(string_for_split)
     part = parts[2].split()
     simtimefile = part[4]
     return float(simtimefile)
@@ -52,7 +54,8 @@ def get_simtimefile(file_content):
 
 # returneaza realtime-ul continutului fisierului introdus
 def get_realtimefile(file_content):
-    parts = file_content.split("*************************************************************************************")
+    string_for_split = "*" * 85
+    parts = file_content.split(string_for_split)
     part = parts[2].split()
     realtimefile = part[11]
     return float(realtimefile)
@@ -77,8 +80,9 @@ def get_testname(part_tests):
 
 # returneaza o lista cu status testelor dintr-un fisier
 def get_testsstatus(file_content):
+    string_for_split = "*" * 75
     testsstatuslist = []
-    justneededpart = file_content.split("********************************************************************************")[2]
+    justneededpart = file_content.split(string_for_split)[2]
     lines = justneededpart.split('\n')
     for line in lines:
         words = line.split()
@@ -89,8 +93,9 @@ def get_testsstatus(file_content):
 
 # returneaza o lista cu simtime-ul testelor dintr-un fisier
 def get_testssimtime(file_content):
+    string_for_split = "*" * 75
     testssimtimelist = []
-    justneededpart = file_content.split("********************************************************************************")[2]
+    justneededpart = file_content.split(string_for_split)[2]
     lines = justneededpart.split('\n')
     for line in lines:
         words = line.split()
@@ -101,8 +106,9 @@ def get_testssimtime(file_content):
 
 # returneaza o lista cu realtime-ul testelor dintr-un fisier
 def get_testsrealtime(file_content):
+    string_for_split = "*" * 75
     testsrealtimelist = []
-    justneededpart = file_content.split("********************************************************************************")[2]
+    justneededpart = file_content.split(string_for_split)[2]
     lines = justneededpart.split('\n')
     for line in lines:
         words = line.split()
