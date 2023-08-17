@@ -212,6 +212,13 @@ def parsefile(filename):
     return json_output
 
 
+# primeste un obiect json si un strig cu numele nou pe care il
+# seteaza ca filename al fisierului si returneaza json-ul actualizat
+def set_filename(objjson, new_filename):
+    objjson['filename'] = new_filename
+    return objjson
+
+
 # primeste un dir si returneaza o lista de obiecte tip Json
 def parsedir(dirname):
     listjson = []

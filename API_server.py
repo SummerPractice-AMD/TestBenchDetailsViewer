@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, request
 from bdqueries import BDQueries
 from DBCollector import load_config, connect_to_database
-from generatejson import parse
+from generatejson import parse, set_filename
 import yaml
 
 app = Flask(__name__)
@@ -141,10 +141,12 @@ def ingest():
     try:
         file = request.files['file']
         if file:
+            filename = file.name
             file_content = file.read().decode("utf-8")
             parsed_json = parse(file_content)
+            out_json = set_filename(parsed_json, filename)
             database_loader = loader
-            database_loader.load_from_json(parsed_json)
+            database_loader.load_from_json(out_json)
             return jsonify({'message':
                             'File ingested and parsed successfully'}), 200
         else:
