@@ -215,6 +215,7 @@ def parsefile(filename):
 # primeste un obiect json si un strig cu numele nou pe care il
 # seteaza ca filename al fisierului si returneaza json-ul actualizat
 def set_filename(objjson, new_filename):
+    new_filename = new_filename.split(".")[0]
     objjson['filename'] = new_filename
     return objjson
 

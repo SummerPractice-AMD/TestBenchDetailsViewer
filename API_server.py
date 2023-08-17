@@ -141,7 +141,7 @@ def ingest():
     try:
         file = request.files['file']
         if file:
-            filename = file.name
+            filename = file.filename
             file_content = file.read().decode("utf-8")
             parsed_json = parse(file_content)
             out_json = set_filename(parsed_json, filename)
