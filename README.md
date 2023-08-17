@@ -21,5 +21,3 @@
              python API_server.py
 
 -In momentul rularii se scrie in bara de search a browser-ului urmatorul text: **http://localhost:5000/**
-
-**Este necesara instalarea modulelor Python: flask, pymongo, argparse, json si yaml**
