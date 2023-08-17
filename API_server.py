@@ -156,8 +156,8 @@ def ingest():
 
 
 @app.route("/")
-def base():
-    return render_template("base.html")
+def load():
+    return render_template("/regressions/globalsummary.html")
 
 
 @app.route("/globalsummary.html")
